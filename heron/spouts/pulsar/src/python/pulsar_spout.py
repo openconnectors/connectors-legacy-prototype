@@ -27,7 +27,7 @@ class PulsarSpout(Spout):
     self.topic = config[PulsarSpout.topicName]
     self.acking = config[constants.TOPOLOGY_ENABLE_ACKING]
     if self.acking:
-      self.acking_timeout = config[constants.TOPOLOGY_MESSAGE_TIMEOUT_SECS]
+      self.acking_timeout = 1000 * int(config[constants.TOPOLOGY_MESSAGE_TIMEOUT_SECS])
     else:
       self.acking_timeout = 30000
     self.receive_timeout_ms = config[PulsarSpout.receiveTimeoutMs]
