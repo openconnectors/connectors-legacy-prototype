@@ -2,21 +2,25 @@
 
 import pulsar
 
-from heron.pyheron.src.python import Spout
-import heron.pyheron.src.python.constants
+from heron.pyheron.src.python import Spout, constants
 
 class PulsarSpout(Spout):
   """PulsarSpout: reads from a pulsar topic"""
+
+  # pylint: disable=too-many-instance-attributes
+
   # output field declarer
-  # TODO(skukarni):- Add sophisticated Schema equivalent like Kafka
-  outputs = ['topic']
+  # fixme(skukarni):- Add sophisticated Schema equivalent like Kafka
+  outputs = ['payload']
 
   # TopologyBuilder uses these constants to set
   # cluster/topicname
   serviceUrl = "PULSAR_SERVICE_URL"
   topicName = "PULSAR_TOPIC"
+  receiveTimeoutMs = 10
 
   def initialize(self, config, context):
+    """Implements Pulsar Spout's initialize method"""
     self.logger.info("In initialize() of PulsarSpout")
 
     self.emit_count = 0
@@ -31,16 +35,16 @@ class PulsarSpout(Spout):
     else:
       self.acking_timeout = 30000
     self.receive_timeout_ms = config[PulsarSpout.receiveTimeoutMs]
-    
+
     # We currently use the high level consumer api
     # For supporting exactly once, we will need to switch
     # to using lower level Reader api, when it becomes
     # available in python
     self.client = pulsar.Client(self.pulsar_cluster)
     try:
-      self.consumer = client.subscribe(self.topic, context.topology_name(),
-                                       consumer_type=pulsar.ConsumerType.Failover,
-                                       unacked_messages_timeout_ms=self.acking_timeout)
+      self.consumer = self.client.subscribe(self.topic, context.topology_name(),
+                                            consumer_type=pulsar.ConsumerType.Failover,
+                                            unacked_messages_timeout_ms=self.acking_timeout)
     except Exception as e:
       self.logger.fatal("Pulsar client subscription failed: %s" % str(e))
 
@@ -61,3 +65,4 @@ class PulsarSpout(Spout):
 
   def fail(self, tup_id):
     self.fail_count += 1
+    self.logger.debug("Failed tuple %s" % str(tup_id))
