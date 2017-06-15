@@ -53,7 +53,7 @@ class PulsarSpout(Spout):
       self.emit([msg.data()], tup_id=msg.message_id())
       self.emit_count += 1
     except Exception as e:
-      self.logger.info("Got Exception during receive")
+      self.logger.debug("Exception during recieve: %s" % str(e))
 
   def ack(self, tup_id):
     self.ack_count += 1
