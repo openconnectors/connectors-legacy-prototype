@@ -39,7 +39,7 @@ class PulsarSpout(Spout):
     self.client = pulsar.Client(self.pulsar_cluster)
     try:
       self.consumer = client.subscribe(self.topic, context.topology_name(),
-                                       consumer_type=pulsar.ConsumerType.Failover)
+                                       consumer_type=pulsar.ConsumerType.Failover,
                                        unacked_messages_timeout_ms=self.acking_timeout)
     except Exception as e:
       self.logger.fatal("Pulsar client subscription failed: %s" % str(e))
