@@ -1,6 +1,6 @@
 """module for pulsar spout: PulsarSpout"""
 
-import pulsar-client
+import pulsar
 
 from heron.pyheron.src.python import Spout
 import heron.pyheron.src.python.constants
@@ -36,10 +36,10 @@ class PulsarSpout(Spout):
     # For supporting exactly once, we will need to switch
     # to using lower level Reader api, when it becomes
     # available in python
-    self.client = pulsar-client.Client(self.pulsar_cluster)
+    self.client = pulsar.Client(self.pulsar_cluster)
     try:
       self.consumer = client.subscribe(self.topic, context.topology_name(),
-                                       consumer_type=pulsar-client.ConsumerType.Failover)
+                                       consumer_type=pulsar.ConsumerType.Failover)
                                        unacked_messages_timeout_ms=self.acking_timeout)
     except Exception as e:
       self.logger.fatal("Pulsar client subscription failed: %s" % str(e))
