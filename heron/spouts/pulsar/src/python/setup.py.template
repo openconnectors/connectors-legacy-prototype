@@ -2,7 +2,7 @@
 import os, re, sys
 from setuptools import setup, find_packages
 
-package_name = "pyheron"
+package_name = "pulsar_spout"
 release_version = "VERSION"
 
 # read the requirements file
@@ -22,7 +22,7 @@ long_description = "Pyheron package allows a developer to write python topology 
 setup(
   name=package_name,
   version=release_version,
-  description='Python Topology API for Heron',
+  description='Python spout for Heron',
   long_description=long_description,
 
   url='https://github.com/twitter/heron',
@@ -34,12 +34,11 @@ setup(
     'Development Status :: 3 - Alpha',
 
     'Intended Audience :: Developers',
-    'Topic :: Real Time streaming',
 
     'Programming Language :: Python :: 2.7',
   ],
 
-  keywords='heron topology python',
+  keywords='heron topology python pulsar spout',
   packages=find_packages(),
 
   install_requires=requirements
