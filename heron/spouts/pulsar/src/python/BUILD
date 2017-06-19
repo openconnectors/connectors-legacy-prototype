@@ -9,11 +9,8 @@ load(
 )
 
 # build binary for single thread python heron instance
+# We don't specify the dependencies here; they go while packaging whl
 pex_binary(
     name = "pulsar-spout",
-    srcs = ["pulsar_spout.py"],
-    reqs = [
-        'pyheron>=0.0.1',
-        'pulsar-client==1.18.dev1',
-    ],
+    srcs = ["pulsar_spout.py", "__init__.py"],
 )

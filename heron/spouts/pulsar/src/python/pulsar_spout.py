@@ -2,7 +2,7 @@
 
 import pulsar
 
-from heron.pyheron.src.python import Spout, constants
+from pyheron import Spout, constants
 
 class PulsarSpout(Spout):
   """PulsarSpout: reads from a pulsar topic"""
