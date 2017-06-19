@@ -13,7 +13,7 @@ pex_binary(
     name = "pulsar-spout",
     srcs = ["pulsar_spout.py"],
     reqs = [
-        'pyheron==0.0.0',
+        'pyheron>=0.0.1',
         'pulsar-client==1.18.dev1',
     ],
 )
@@ -43,7 +43,7 @@ genrule(
         'export SPOUT_VERSION=$$(grep version $$RELEASE_FILE_DIR/$(location //scripts/packages:release-yaml) | awk \'{print $$3}\')',
         'export SPOUT_VERSION=$$(echo $$SPOUT_VERSION | sed -e "s/^\'//" -e "s/\'$$//")',
         'export SPOUT_VERSION=$$(echo $$SPOUT_VERSION | grep "[0-9]*\.[0-9]*\.[0-9]*")',
-        'export SPOUT_VERSION=$$([[ -z $$SPOUT_VERSION ]] && echo "0.0.0" || echo $$SPOUT_VERSION)',
+        'export SPOUT_VERSION=$$([[ -z $$SPOUT_VERSION ]] && echo "0.0.1" || echo $$SPOUT_VERSION)',
         'echo $$SPOUT_VERSION',
         'mkdir -p $$TMP_DIR $$SPOUT_DIR',
         'unzip -qd $$SPOUT_UNZIP $(location :pulsar-spout)',
