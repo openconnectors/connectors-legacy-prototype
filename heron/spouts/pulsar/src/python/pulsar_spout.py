@@ -47,7 +47,7 @@ class PulsarSpout(Spout):
     # available in python
     self.client = pulsar.Client(self.pulsar_cluster)
     try:
-      self.consumer = self.client.subscribe(self.topic, context.topology_name(),
+      self.consumer = self.client.subscribe(self.topic, context.get_topology_name(),
                                             consumer_type=pulsar.ConsumerType.Failover,
                                             unacked_messages_timeout_ms=self.acking_timeout)
     except Exception as e:

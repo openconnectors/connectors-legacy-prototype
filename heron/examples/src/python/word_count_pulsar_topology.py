@@ -58,7 +58,7 @@ if __name__ == '__main__':
   word_spout = builder.add_spout("pulsar_word_spout", PulsarSpout, par=2,
                                  config={PulsarSpout.serviceUrl: "pulsar://localhost:6650",
                                          PulsarSpout.topicName:
-                                         "persistent://sample/standalone/ns/mytopic"})
+                                         "persistent://sample/standalone/ns1/my-topic"})
   count_bolt = builder.add_bolt("count_bolt", CountBolt, par=2,
                                 inputs={word_spout: Grouping.fields('payload')},
                                 config={constants.TOPOLOGY_TICK_TUPLE_FREQ_SECS: 10})
