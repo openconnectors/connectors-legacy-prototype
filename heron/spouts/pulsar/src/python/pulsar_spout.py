@@ -17,7 +17,7 @@ class PulsarSpout(Spout):
   # cluster/topicname
   serviceUrl = "PULSAR_SERVICE_URL"
   topicName = "PULSAR_TOPIC"
-  receiveTimeoutMs = 10
+  receiveTimeoutMs = "PULSAR_RECEIVE_TIMEOUT_MS"
 
   def initialize(self, config, context):
     """Implements Pulsar Spout's initialize method"""
@@ -27,6 +27,8 @@ class PulsarSpout(Spout):
     self.ack_count = 0
     self.fail_count = 0
 
+    if not PulsarSpout.serviceUrl in config or not PulsarSpout.topicName in config:
+      self.logger.fatal("Need to specify both serviceUrl and topicName")
     self.pulsar_cluster = config[PulsarSpout.serviceUrl]
     self.topic = config[PulsarSpout.topicName]
     self.acking = config[constants.TOPOLOGY_ENABLE_ACKING]
@@ -34,7 +36,10 @@ class PulsarSpout(Spout):
       self.acking_timeout = 1000 * int(config[constants.TOPOLOGY_MESSAGE_TIMEOUT_SECS])
     else:
       self.acking_timeout = 30000
-    self.receive_timeout_ms = config[PulsarSpout.receiveTimeoutMs]
+    if PulsarSpout.receiveTimeoutMs in config:
+      self.receive_timeout_ms = config[PulsarSpout.receiveTimeoutMs]
+    else:
+      self.receive_timeout_ms = 10
 
     # We currently use the high level consumer api
     # For supporting exactly once, we will need to switch

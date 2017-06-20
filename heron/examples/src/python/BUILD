@@ -11,5 +11,5 @@ load(
 pex_binary(
     name = "word_pulsar_count",
     srcs = ["word_count_pulsar_topology.py"],
-    reqs = ['pulsar_spout>=0.0.7', 'pyheron>=0.0.3'],
+    reqs = ['pulsar_spout>=0.0.8', 'pyheron>=0.0.3'],
 )
