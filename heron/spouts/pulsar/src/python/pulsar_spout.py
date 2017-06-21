@@ -47,7 +47,9 @@ class PulsarSpout(Spout):
 
   def initialize(self, config, context):
     """Implements Pulsar Spout's initialize method"""
-    self.logger.info("In initialize() of PulsarSpout")
+    self.logger.info("Initializing PulsarSpout with the following")
+    self.logger.info("Component-specific config: \n%s" % str(config))
+    self.logger.info("Context: \n%s" % str(context))
 
     self.emit_count = 0
     self.ack_count = 0
@@ -69,12 +71,14 @@ class PulsarSpout(Spout):
 
     # First generate the config
     self.logConfFileName = GenerateLogConfig(context)
+    self.logger.info("Generated LogConf at %s" % self.logConfFileName)
 
     # We currently use the high level consumer api
     # For supporting exactly once, we will need to switch
     # to using lower level Reader api, when it becomes
     # available in python
     self.client = pulsar.Client(self.pulsar_cluster, log_conf_file_path=self.logConfFileName)
+    self.logger.info("Setup Client with cluster %s" % self.pulsar_cluster)
     try:
       self.consumer = self.client.subscribe(self.topic, context.get_topology_name(),
                                             consumer_type=pulsar.ConsumerType.Failover,
@@ -82,8 +86,7 @@ class PulsarSpout(Spout):
     except Exception as e:
       self.logger.fatal("Pulsar client subscription failed: %s" % str(e))
 
-    self.logger.info("Component-specific config: \n%s" % str(config))
-    self.logger.info("Context: \n%s" % str(context))
+    self.logger.info("Subscribed to topic %s" % self.topic)
 
   def next_tuple(self):
     try:
