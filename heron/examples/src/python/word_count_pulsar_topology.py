@@ -28,6 +28,7 @@ if __name__ == '__main__':
   builder = TopologyBuilder(name=sys.argv[1])
 
   word_spout = builder.add_spout("pulsar_word_spout", PulsarSpout, par=2,
+                                 optional_outputs=PulsarSpout.DefaultDeserializer.outputs,
                                  config={PulsarSpout.serviceUrl: "pulsar://localhost:6650",
                                          PulsarSpout.topicName:
                                          "persistent://sample/standalone/ns1/my-topic"})
