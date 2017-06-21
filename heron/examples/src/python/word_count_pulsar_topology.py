@@ -13,38 +13,10 @@
 # limitations under the License.
 '''Example WordCountPulsarTopology'''
 import sys
-from collections import Counter
 
-from pyheron import Grouping, TopologyBuilder, constants, Bolt
+from pyheron import Grouping, TopologyBuilder, constants
+from heron.examples.src.python.bolts import CountBolt
 from pulsar_spout import PulsarSpout
-
-# Count Bolt defn
-# pylint: disable=unused-argument
-class CountBolt(Bolt):
-  """CountBolt"""
-  # output field declarer
-  #outputs = ['word', 'count']
-
-  def initialize(self, config, context):
-    self.logger.info("In prepare() of CountBolt")
-    self.counter = Counter()
-    self.total = 0
-
-    self.logger.info("Component-specific config: \n%s" % str(config))
-    self.logger.info("Context: \n%s" % str(context))
-
-  def _increment(self, word, inc_by):
-    self.counter[word] += inc_by
-    self.total += inc_by
-
-  def process(self, tup):
-    word = tup.values[0]
-    self._increment(word, 1)
-    self.ack(tup)
-
-  def process_tick(self, tup):
-    self.log("Got tick tuple!")
-    self.log("Current map: %s" % str(self.counter))
 
 # Topology is defined using a topology builder
 # Refer to multi_stream_topology for defining a topology by subclassing Topology

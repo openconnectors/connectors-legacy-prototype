@@ -1,8 +1,34 @@
 """module for pulsar spout: PulsarSpout"""
 
+import os
+import tempfile
+
 import pulsar
 
 from pyheron import Spout, constants
+
+def GenerateLogConfContents(logFileName):
+  return """
+# Define the root logger with appender file
+log4j.rootLogger = INFO, FILE
+# Define the file appender
+log4j.appender.FILE=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.FILE.File=%s""" % logFileName + """
+log4j.appender.FILE.Threshold=INFO
+log4j.appender.FILE.DatePattern='.' yyyy-MM-dd-a
+log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.FILE.layout.ConversionPattern=%d{yy-MM-dd HH:mm:ss.SSS} %X{pname}:%X{pid} %-5p %l- %m%n
+"""
+
+def GenerateLogConfig(context):
+  namePrefix = str(context.component_id) + "-" + str(context.task_id)
+  logFileName = os.getcwd() + "/" + namePrefix
+  flHandler = tempfile.NamedTemporaryFile(prefix=namePrefix, suffix='.conf',
+                                          dir=os.getcwd(), delete=False)
+  flHandler.write(GenerateLogConfContents(logFileName))
+  flHandler.flush()
+  flHandler.close()
+  return flHandler.name
 
 class PulsarSpout(Spout):
   """PulsarSpout: reads from a pulsar topic"""
@@ -41,11 +67,14 @@ class PulsarSpout(Spout):
     else:
       self.receive_timeout_ms = 10
 
+    # First generate the config
+    self.logConfFileName = GenerateLogConfig(context)
+
     # We currently use the high level consumer api
     # For supporting exactly once, we will need to switch
     # to using lower level Reader api, when it becomes
     # available in python
-    self.client = pulsar.Client(self.pulsar_cluster)
+    self.client = pulsar.Client(self.pulsar_cluster, log_conf_file_path=self.logConfFileName)
     try:
       self.consumer = self.client.subscribe(self.topic, context.get_topology_name(),
                                             consumer_type=pulsar.ConsumerType.Failover,
