@@ -35,18 +35,16 @@ class PulsarSpout(Spout):
 
   # pylint: disable=too-many-instance-attributes
 
-  class DefaultDeserializer(object):
-    outputs = ["payload"]
-    @staticmethod
-    def deserialize(msg):
-      return [str(msg)]
+  # pylint: disable=no-self-use
+  def deserialize(self, msg):
+    self.logger.info("Came in Base class deserialize")
+    return [str(msg)]
 
   # TopologyBuilder uses these constants to set
   # cluster/topicname
   serviceUrl = "PULSAR_SERVICE_URL"
   topicName = "PULSAR_TOPIC"
   receiveTimeoutMs = "PULSAR_RECEIVE_TIMEOUT_MS"
-  messageDeserializer = "PULSAR_MESSAGE_DESERIALIZER"
 
   def initialize(self, config, context):
     """Implements Pulsar Spout's initialize method"""
@@ -72,11 +70,6 @@ class PulsarSpout(Spout):
     else:
       self.receive_timeout_ms = 10
 
-    if PulsarSpout.messageDeserializer in config:
-      self.deserializer = config[PulsarSpout.messageDeserializer]
-    else:
-      self.deserializer = PulsarSpout.DefaultDeserializer()
-
     # First generate the config
     self.logConfFileName = GenerateLogConfig(context)
     self.logger.info("Generated LogConf at %s" % self.logConfFileName)
@@ -99,10 +92,15 @@ class PulsarSpout(Spout):
   def next_tuple(self):
     try:
       msg = self.consumer.receive(timeout_millis=self.receive_timeout_ms)
-      self.emit(self.deserializer.deserialize(msg.data()), tup_id=msg.message_id())
-      self.emit_count += 1
     except Exception as e:
       self.logger.debug("Exception during recieve: %s" % str(e))
+      return
+
+    try:
+      self.emit(self.deserialize(msg.data()), tup_id=msg.message_id())
+      self.emit_count += 1
+    except Exception as e:
+      self.logger.info("Exception during emit: %s" % str(e))
 
   def ack(self, tup_id):
     self.ack_count += 1

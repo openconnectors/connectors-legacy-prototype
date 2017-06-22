@@ -15,7 +15,8 @@
 import sys
 
 from pyheron import Grouping, TopologyBuilder, constants
-from heron.examples.src.python.bolts import CountBolt
+from heron.examples.src.python.spouts.nameage_pulsarspout import NameAgePulsarSpout
+from heron.examples.src.python.bolts.count_bolt import CountBolt
 from pulsar_spout import PulsarSpout
 
 # Topology is defined using a topology builder
@@ -27,13 +28,13 @@ if __name__ == '__main__':
 
   builder = TopologyBuilder(name=sys.argv[1])
 
-  word_spout = builder.add_spout("pulsar_word_spout", PulsarSpout, par=2,
-                                 optional_outputs=PulsarSpout.DefaultDeserializer.outputs,
+  word_spout = builder.add_spout("pulsar_word_spout", NameAgePulsarSpout, par=2,
+                                 optional_outputs=NameAgePulsarSpout.nameagefields,
                                  config={PulsarSpout.serviceUrl: "pulsar://localhost:6650",
                                          PulsarSpout.topicName:
                                          "persistent://sample/standalone/ns1/my-topic"})
   count_bolt = builder.add_bolt("count_bolt", CountBolt, par=2,
-                                inputs={word_spout: Grouping.fields('payload')},
+                                inputs={word_spout: Grouping.fields('Name')},
                                 config={constants.TOPOLOGY_TICK_TUPLE_FREQ_SECS: 10})
 
   topology_config = {constants.TOPOLOGY_ENABLE_ACKING: True}

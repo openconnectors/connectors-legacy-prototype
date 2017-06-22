@@ -11,7 +11,11 @@ load(
 pex_library(
     name = "bolts-py",
     srcs = glob(['bolts/*.py']),
-    reqs = ['pyheron>=0.0.5'],
+)
+
+pex_library(
+    name = "spouts-py",
+    srcs = glob(['spouts/*.py']),
 )
 
 pex_binary(
@@ -19,6 +23,7 @@ pex_binary(
     srcs = ["word_count_pulsar_topology.py"],
     deps = [
       '//heron/examples/src/python:bolts-py',
+      '//heron/examples/src/python:spouts-py',
     ],
-    reqs = ['pulsar_spout>=0.0.21', 'pyheron>=0.0.5'],
+    reqs = ['pulsar_spout==0.0.21.dev5', 'pyheron>=0.0.5'],
 )
