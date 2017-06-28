@@ -14,7 +14,7 @@
 '''Example WordCountPulsarTopology'''
 import sys
 
-from heron.api.src.python import Grouping, TopologyBuilder, api_constants
+from heronpy import Grouping, TopologyBuilder, api_constants
 from heron.examples.src.python.spouts.nameage_pulsarspout import NameAgePulsarSpout
 from heron.examples.src.python.bolts.count_bolt import CountBolt
 from pulsar_spout import PulsarSpout
