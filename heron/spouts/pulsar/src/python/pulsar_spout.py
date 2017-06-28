@@ -5,7 +5,7 @@ import tempfile
 
 import pulsar
 
-from pyheron import Spout, constants
+from heronpy import Spout, api_constants
 
 def GenerateLogConfContents(logFileName):
   return """
@@ -21,7 +21,7 @@ log4j.appender.FILE.layout.ConversionPattern=%d{yy-MM-dd HH:mm:ss.SSS} %X{pname}
 """
 
 def GenerateLogConfig(context):
-  namePrefix = str(context.component_id) + "-" + str(context.task_id)
+  namePrefix = str(context.get_component_id()) + "-" + str(context.get_task_id())
   logFileName = os.getcwd() + "/" + namePrefix
   flHandler = tempfile.NamedTemporaryFile(prefix=namePrefix, suffix='.conf',
                                           dir=os.getcwd(), delete=False)
@@ -60,9 +60,9 @@ class PulsarSpout(Spout):
       self.logger.fatal("Need to specify both serviceUrl and topicName")
     self.pulsar_cluster = str(config[PulsarSpout.serviceUrl])
     self.topic = str(config[PulsarSpout.topicName])
-    self.acking = config[constants.TOPOLOGY_ENABLE_ACKING]
+    self.acking = config[api_constants.TOPOLOGY_ENABLE_ACKING]
     if self.acking:
-      self.acking_timeout = 1000 * int(config[constants.TOPOLOGY_MESSAGE_TIMEOUT_SECS])
+      self.acking_timeout = 1000 * int(config[api_constants.TOPOLOGY_MESSAGE_TIMEOUT_SECS])
     else:
       self.acking_timeout = 30000
     if PulsarSpout.receiveTimeoutMs in config:

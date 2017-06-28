@@ -14,7 +14,7 @@
 '''Count Bolt'''
 from collections import Counter
 
-from pyheron import Bolt
+from heron.api.src.python import Bolt
 
 # Count Bolt defn
 # pylint: disable=unused-argument

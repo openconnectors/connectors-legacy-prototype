@@ -50,7 +50,7 @@ genrule(
         'export SPOUT_VERSION=$$(grep version $$RELEASE_FILE_DIR/$(location :release.yaml) | awk \'{print $$3}\')',
         'export SPOUT_VERSION=$$(echo $$SPOUT_VERSION | sed -e "s/^\'//" -e "s/\'$$//")',
         'export SPOUT_VERSION=$$(echo $$SPOUT_VERSION | grep "[0-9]*\.[0-9]*\.[0-9]*")',
-        'export SPOUT_VERSION=$$([[ -z $$SPOUT_VERSION ]] && echo "0.0.21.dev5" || echo $$SPOUT_VERSION)',
+        'export SPOUT_VERSION=$$([[ -z $$SPOUT_VERSION ]] && echo "0.0.22" || echo $$SPOUT_VERSION)',
         'echo $$SPOUT_VERSION',
         'mkdir -p $$TMP_DIR $$SPOUT_DIR',
         'unzip -qd $$SPOUT_UNZIP $(location //heron/spouts/pulsar/src/python:pulsar-spout)',

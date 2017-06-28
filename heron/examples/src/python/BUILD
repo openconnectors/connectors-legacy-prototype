@@ -25,5 +25,5 @@ pex_binary(
       '//heron/examples/src/python:bolts-py',
       '//heron/examples/src/python:spouts-py',
     ],
-    reqs = ['pulsar_spout==0.0.21.dev5', 'pyheron>=0.0.5'],
+    reqs = ['pulsar_spout==0.0.22', 'heronpy>=0.0.0'],
 )

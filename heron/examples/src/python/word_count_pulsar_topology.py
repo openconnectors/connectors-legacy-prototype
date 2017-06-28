@@ -14,7 +14,7 @@
 '''Example WordCountPulsarTopology'''
 import sys
 
-from pyheron import Grouping, TopologyBuilder, constants
+from heron.api.src.python import Grouping, TopologyBuilder, api_constants
 from heron.examples.src.python.spouts.nameage_pulsarspout import NameAgePulsarSpout
 from heron.examples.src.python.bolts.count_bolt import CountBolt
 from pulsar_spout import PulsarSpout
@@ -35,9 +35,9 @@ if __name__ == '__main__':
                                          "persistent://sample/standalone/ns1/my-topic"})
   count_bolt = builder.add_bolt("count_bolt", CountBolt, par=2,
                                 inputs={word_spout: Grouping.fields('Name')},
-                                config={constants.TOPOLOGY_TICK_TUPLE_FREQ_SECS: 10})
+                                config={api_constants.TOPOLOGY_TICK_TUPLE_FREQ_SECS: 10})
 
-  topology_config = {constants.TOPOLOGY_ENABLE_ACKING: True}
+  topology_config = {api_constants.TOPOLOGY_ENABLE_ACKING: True}
   builder.set_config(topology_config)
 
   builder.build_and_submit()
