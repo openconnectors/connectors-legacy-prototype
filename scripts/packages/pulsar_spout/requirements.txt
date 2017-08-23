@@ -1,3 +1,0 @@
-protobuf>=2.5.0,<3
-heronpy>=0.0.0
-pulsar-client==1.19.dev2
