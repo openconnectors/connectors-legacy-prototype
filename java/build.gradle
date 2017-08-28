@@ -1,0 +1,49 @@
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+allprojects {
+
+}
+
+
+subprojects {
+
+	apply plugin: "java"
+
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+ 	repositories {
+		jcenter()
+  	}
+
+  	test {
+		useTestNG()
+	}
+
+	dependencies {
+		compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+		compile group: 'com.twitter.heron', name: 'heron-api', version: '0.15.1'
+    	testCompile 'org.testng:testng:6.11'
+    	testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+ 	}
+}
+
+//Common Project specific stuff
+project(':core') {
+
+}
+
+//API Project specific stuff
+project(':pulsar') {
+   dependencies {
+      compile project(':core')
+   }
+}
+
+//App Project specific stuff
+project(':kafka') {
+   dependencies {
+      compile project(':core')
+   }
+}
