@@ -7,6 +7,7 @@ repositories {
 dependencies {
     compile 'org.apache.pulsar:pulsar-client:1.19.0-incubating'
     testCompile 'org.testng:testng:6.11'
+    compile project(':core')
 }
 
 test {
