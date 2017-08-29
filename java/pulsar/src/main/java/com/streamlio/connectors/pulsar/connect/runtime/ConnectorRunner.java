@@ -18,9 +18,10 @@
  */
 package com.streamlio.connectors.pulsar.connect.runtime;
 
+import com.streamlio.common.ConnectorExecutionException;
+import com.streamlio.common.util.PropertiesValidator;
 import com.streamlio.connectors.pulsar.connect.api.sink.SinkConnector;
 import com.streamlio.connectors.pulsar.connect.config.ConnectorConfiguration;
-import com.streamlio.connectors.pulsar.connect.util.PropertiesValidator;
 
 import java.util.Properties;
 

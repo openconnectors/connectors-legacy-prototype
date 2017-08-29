@@ -21,7 +21,7 @@ package com.streamlio.connectors.pulsar.connect.sink.fs;
 import com.streamlio.common.io.util.IoUtils;
 import com.streamlio.connectors.pulsar.connect.api.sink.SinkConnector;
 import com.streamlio.connectors.pulsar.connect.config.ConnectorConfiguration;
-import com.streamlio.connectors.pulsar.connect.util.Bytes;
+import com.streamlio.common.util.Bytes;
 import org.apache.pulsar.client.api.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

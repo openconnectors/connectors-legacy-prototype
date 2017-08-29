@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.runtime;
+package com.streamlio.common;
 
 public class ConnectorExecutionException extends RuntimeException {
     public ConnectorExecutionException(String message) {

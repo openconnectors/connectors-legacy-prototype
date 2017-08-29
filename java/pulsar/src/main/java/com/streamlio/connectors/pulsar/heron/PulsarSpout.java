@@ -13,6 +13,7 @@
 //  limitations under the License.
 package com.streamlio.connectors.pulsar.heron;
 
+import com.streamlio.common.util.Utils;
 import com.twitter.heron.api.metric.IMetric;
 import com.twitter.heron.api.spout.BaseRichSpout;
 import com.twitter.heron.api.spout.SpoutOutputCollector;

@@ -11,7 +11,7 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-package com.streamlio.connectors.pulsar.heron;
+package com.streamlio.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

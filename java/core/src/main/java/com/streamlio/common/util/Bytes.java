@@ -16,24 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.util;
+package com.streamlio.common.util;
 
-import java.util.Properties;
+public class Bytes {
 
-public class ConfigUtils {
+    public static final long MB = 1024L * 1024L;
 
-    public static long getLong(Properties properties, String key, long defaultValue) {
-        final String value = properties.getProperty(key);
-        if (value != null) {
-            try {
-                return Long.parseLong(value);
-            } catch (Exception ex) {
-                // ignore
-            }
-        }
-
-        return defaultValue;
+    public static double toMb(long size) {
+        return (double) size / MB;
     }
 
-    private ConfigUtils() {}
+    private Bytes() {}
 }
