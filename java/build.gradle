@@ -5,7 +5,6 @@ allprojects {
 
 }
 
-
 subprojects {
 
 	apply plugin: "java"
@@ -14,11 +13,11 @@ subprojects {
 	targetCompatibility = 1.8
 
  	repositories {
-		jcenter()
+		  jcenter()
   	}
 
   	test {
-		useTestNG()
+		  useTestNG()
 	}
 
 	dependencies {
@@ -29,19 +28,19 @@ subprojects {
  	}
 }
 
-//Common Project specific stuff
+//Core
 project(':core') {
 
 }
 
-//API Project specific stuff
+//Pulsar
 project(':pulsar') {
    dependencies {
       compile project(':core')
    }
 }
 
-//App Project specific stuff
+//Kafka
 project(':kafka') {
    dependencies {
       compile project(':core')

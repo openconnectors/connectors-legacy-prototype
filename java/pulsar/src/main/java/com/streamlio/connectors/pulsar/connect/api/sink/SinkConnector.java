@@ -18,7 +18,7 @@
  */
 package com.streamlio.connectors.pulsar.connect.api.sink;
 
-import com.streamlio.connectors.pulsar.connect.api.Connector;
+import com.streamlio.api.Connector;
 import org.apache.pulsar.client.api.Message;
 
 import java.io.IOException;

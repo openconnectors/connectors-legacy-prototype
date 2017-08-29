@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.api;
+package com.streamlio.api;
 
 import java.util.Properties;
 
