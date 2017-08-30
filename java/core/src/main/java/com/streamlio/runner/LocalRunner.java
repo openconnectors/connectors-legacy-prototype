@@ -5,7 +5,23 @@ import com.streamlio.localfilesystem.*;
 
 import java.io.IOException;
 
-public class LocalRunner implements Runner{
+public class LocalRunner extends Runner{
+
+    @Override
+    public void setup() {
+
+    }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void close() throws IOException {
+
+    }
+
 
     public static void main(String[] args) throws IOException {
 
