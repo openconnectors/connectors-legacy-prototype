@@ -5,8 +5,8 @@ import com.streamlio.io.ReadIO;
 import com.streamlio.io.ReadResult;
 import com.streamlio.io.Readable;
 
-public interface Source {
+public interface Source<T extends ReadResult, U extends ReaderContext, V extends ReadIO> {
 
-    Readable open(final ReadIO context);
+    Readable<T,U> open(final V context);
 
 }

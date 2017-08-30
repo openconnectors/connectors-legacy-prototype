@@ -1,15 +1,14 @@
 package com.streamlio.api.sink;
 
-import com.streamlio.io.Writable;
-import com.streamlio.io.WriteIO;
+import com.streamlio.io.*;
 
-public interface Sink {
+public interface Sink<T extends WriteResult, U extends WriteContext, V extends WriteIO> {
 
     /**
      *
      * @param Context
      * @return
      */
-    Writable open(WriteIO Context);
+    Writeable<T,U> open(V Context);
 
 }

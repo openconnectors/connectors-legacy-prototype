@@ -3,10 +3,7 @@ package com.streamlio.io;
 public class StringLineEndReadResult extends StringLineReadResult {
 
 
-    StringLineEndReadResult(){
-        this.
-
+    public StringLineEndReadResult(long lineNum, String data) {
+        super(lineNum, data);
     }
-
-
 }

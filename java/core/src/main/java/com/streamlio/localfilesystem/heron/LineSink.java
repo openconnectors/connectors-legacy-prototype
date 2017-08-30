@@ -9,7 +9,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class LineSink extends RichSink{
+public class LineSink extends RichSink<WriteResult,LineWriteContext,WriteIO> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LineSink.class);
     private BufferedWriter writer;
@@ -21,7 +21,7 @@ public class LineSink extends RichSink{
     }
 
     @Override
-    public Writable open(final WriteIO context) {
+    public Writeable open(final WriteIO context) {
         try {
             writer = new BufferedWriter(new FileWriter(fileName));
         } catch (IOException e) {
@@ -30,15 +30,13 @@ public class LineSink extends RichSink{
     }
 
     @Override
-    public WriteResult write(WriteContext write) {
-        LOG.info(line);
+    public WriteResult write(LineWriteContext context) {
+        LOG.info(context.getData());
         try {
-            writer.write(line);
+            writer.write(context.getData());
             writer.flush();
-            outputCollector.ack(tuple);
         } catch (IOException e) {
-            outputCollector.fail(tuple);
-            throw new RuntimeException("Problem writing to file",e);
+            throw new RuntimeException("Problem writing to file", e);
         }
     }
 
@@ -46,4 +44,9 @@ public class LineSink extends RichSink{
     public void close() throws IOException {
 
     }
+
+//    @Override
+//    public WriteResult write(WriteContext write) {
+//        return null;
+//    }
 }
