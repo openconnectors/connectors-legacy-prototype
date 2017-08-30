@@ -5,14 +5,12 @@ import com.streamlio.io.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
-public class LineSink extends RichSink<WriteResult,LineWriteContext,WriteIO> {
+public class LineSink extends RichSink<WriteResult,LineWriterContext,WriteIO> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LineSink.class);
-    private Writeable<WriteResult, LineWriteContext> writer;
+    private Writeable<WriteResult, LineWriterContext> writer;
     private final String fileName;
 
     public LineSink(final WriteIO context, final String fileName) {
@@ -21,15 +19,10 @@ public class LineSink extends RichSink<WriteResult,LineWriteContext,WriteIO> {
     }
 
     @Override
-    public Writeable<WriteResult, LineWriteContext> open(WriteIO Context) {
+    public Writeable<WriteResult, LineWriterContext> open(WriteIO Context) {
         this.writer = new LocalFileWriter(this.fileName);
         return this.writer;
     }
-
-//    @Override
-//    public WriteResult write(Object context) {
-//        return null;
-//    }
 
     @Override
     public void close() throws IOException {
@@ -38,7 +31,7 @@ public class LineSink extends RichSink<WriteResult,LineWriteContext,WriteIO> {
     }
 
     @Override
-    public WriteResult write(Object context) {
-        return null;
+    public WriteResult write(LineWriterContext context) {
+        this.writer.write(context);
     }
 }

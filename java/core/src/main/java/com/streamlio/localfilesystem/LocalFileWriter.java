@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class LocalFileWriter implements Writeable<WriteResult, LineWriteContext> {
+public class LocalFileWriter implements Writeable<WriteResult, LineWriterContext> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalFileWriter.class);
 
@@ -29,7 +29,7 @@ public class LocalFileWriter implements Writeable<WriteResult, LineWriteContext>
     }
 
     @Override
-    public WriteResult write(LineWriteContext context) {
+    public WriteResult write(LineWriterContext context) {
         LOG.info(context.getData());
         try {
             writer.write(context.getData());

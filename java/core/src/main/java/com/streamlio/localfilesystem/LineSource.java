@@ -12,9 +12,8 @@ import java.io.IOException;
 public class LineSource extends RichSource<StringLineReadResult, ReaderContext, ReadIO> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LineSink.class);
-
-    private final String fileName;
     private Readable<StringLineReadResult, ReaderContext> reader;
+    private final String fileName;
 
     public LineSource(ReadIO context, String fileName) {
         super(context);

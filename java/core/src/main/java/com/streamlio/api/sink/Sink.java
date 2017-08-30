@@ -2,7 +2,7 @@ package com.streamlio.api.sink;
 
 import com.streamlio.io.*;
 
-public interface Sink<T extends WriteResult, U extends WriteContext, V extends WriteIO> {
+public interface Sink<T extends WriteResult, U extends WriterContext, V extends WriteIO> {
 
     /**
      *
