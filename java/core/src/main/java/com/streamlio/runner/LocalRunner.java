@@ -1,15 +1,17 @@
 package com.streamlio.runner;
 
-import com.streamlio.io.ReadResult;
 import com.streamlio.localfilesystem.*;
 
 import java.io.IOException;
 
-public class LocalRunner extends Runner{
+public class LocalRunner extends Runner<LineSource,LineTransformer,LineSink>{
 
     @Override
     public void setup() {
-
+        this.source = new LineSource();
+        this.sink = new LineSink();
+        this.source.open(null);
+        this.sink.open(null);
     }
 
     @Override
@@ -19,7 +21,8 @@ public class LocalRunner extends Runner{
 
     @Override
     public void close() throws IOException {
-
+        this.source.close();
+        this.sink.close();
     }
 
 
