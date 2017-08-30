@@ -1,6 +1,8 @@
-package com.streamlio.io;
+package com.streamlio.localfilesystem;
 
-public class LineWriteContext implements WriteContext{
+import com.streamlio.io.WriteContext;
+
+public class LineWriteContext extends WriteContext {
 
     private String data;
 

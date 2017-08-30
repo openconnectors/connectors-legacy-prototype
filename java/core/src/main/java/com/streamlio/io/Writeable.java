@@ -4,8 +4,8 @@ public interface Writeable<T extends WriteResult, U extends WriteContext> {
 
     /**
      *
-     * @param write
+     * @param context
      * @return
      */
-    T write(final U write);
+    T write(final U context);
 }

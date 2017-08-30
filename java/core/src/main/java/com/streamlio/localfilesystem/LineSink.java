@@ -1,4 +1,4 @@
-package com.streamlio.localfilesystem.heron;
+package com.streamlio.localfilesystem;
 
 import com.streamlio.api.sink.RichSink;
 import com.streamlio.io.*;
@@ -45,8 +45,8 @@ public class LineSink extends RichSink<WriteResult,LineWriteContext,WriteIO> {
 
     }
 
-//    @Override
-//    public WriteResult write(WriteContext write) {
-//        return null;
-//    }
+    @Override
+    public WriteResult write(WriteContext write) {
+        return null;
+    }
 }

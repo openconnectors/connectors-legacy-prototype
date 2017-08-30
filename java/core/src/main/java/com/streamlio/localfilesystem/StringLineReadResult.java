@@ -1,4 +1,6 @@
-package com.streamlio.io;
+package com.streamlio.localfilesystem;
+
+import com.streamlio.io.ReadResult;
 
 public class StringLineReadResult implements ReadResult {
 

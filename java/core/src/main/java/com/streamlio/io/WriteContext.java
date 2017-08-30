@@ -1,4 +1,5 @@
 package com.streamlio.io;
 
-public interface WriteContext {
+public class WriteContext {
+
 }

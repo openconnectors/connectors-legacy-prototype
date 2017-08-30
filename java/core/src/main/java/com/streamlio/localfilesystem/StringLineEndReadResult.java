@@ -1,4 +1,4 @@
-package com.streamlio.io;
+package com.streamlio.localfilesystem;
 
 public class StringLineEndReadResult extends StringLineReadResult {
 

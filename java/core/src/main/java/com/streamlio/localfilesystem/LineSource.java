@@ -1,4 +1,4 @@
-package com.streamlio.localfilesystem.heron;
+package com.streamlio.localfilesystem;
 
 import com.streamlio.api.source.RichSource;
 import com.streamlio.io.*;

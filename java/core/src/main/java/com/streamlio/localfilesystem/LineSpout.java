@@ -1,4 +1,4 @@
-package com.streamlio.localfilesystem.heron;
+package com.streamlio.localfilesystem;
 
 import com.twitter.heron.api.spout.BaseRichSpout;
 import com.twitter.heron.api.spout.SpoutOutputCollector;
