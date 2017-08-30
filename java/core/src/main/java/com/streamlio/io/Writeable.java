@@ -1,6 +1,8 @@
 package com.streamlio.io;
 
-public interface Writeable<T extends WriteResult, U extends WriteContext> {
+import java.io.Closeable;
+
+public interface Writeable<T extends WriteResult, U> extends Closeable{
 
     /**
      *
