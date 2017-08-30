@@ -27,6 +27,11 @@ public class LineSource extends RichSource<StringLineReadResult, ReaderContext, 
     }
 
     @Override
+    public boolean isOpen() {
+        return reader.isOpen();
+    }
+
+    @Override
     public StringLineReadResult query(ReaderContext context) {
         return this.reader.query(context);
     }

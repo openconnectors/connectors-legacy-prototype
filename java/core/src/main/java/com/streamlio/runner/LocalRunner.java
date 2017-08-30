@@ -6,17 +6,28 @@ import java.io.IOException;
 
 public class LocalRunner extends Runner<LineSource,LineTransformer,LineSink>{
 
+    private String sourceFileName;
+    private String targetFileName;
+
+    public LocalRunner(String sourceFileName, String targetFileName){
+        this.sourceFileName = sourceFileName;
+        this.targetFileName = targetFileName;
+    }
+
     @Override
     public void setup() {
-        this.source = new LineSource();
-        this.sink = new LineSink();
+        this.source = new LineSource(null, sourceFileName);
+        this.sink = new LineSink(null, targetFileName);
         this.source.open(null);
         this.sink.open(null);
+        this.mapper = new LineTransformer();
     }
 
     @Override
     public void start() {
-
+        while(source.isOpen() && sink.isOpen()){
+            sink.write(mapper.transform(source.query(null)));
+        }
     }
 
     @Override
@@ -25,23 +36,15 @@ public class LocalRunner extends Runner<LineSource,LineTransformer,LineSink>{
         this.sink.close();
     }
 
-
     public static void main(String[] args) throws IOException {
 
-        LineSource lsource = new LineSource(null, "/Users/a.ahmed/Desktop/test.txt");
-        lsource.open(null);
-        LineSink lsink = new LineSink(null, "/Users/a.ahmed/Desktop/test_out.txt");
-        lsink.open(null);
+        LocalRunner lr = new LocalRunner(
+                "/Users/a.ahmed/Desktop/test.txt",
+                "/Users/a.ahmed/Desktop/test_out.txt");
 
-        StringLineReadResult temp = lsource.query(null);
-
-        while(!(temp instanceof StringLineEndReadResult)){
-            lsink.write(new LineWriterContext(temp.getData()));
-        }
-
-        lsource.close();
-        lsink.close();
-
+        lr.setup();
+        lr.start();
+        lr.close();
     }
 
 

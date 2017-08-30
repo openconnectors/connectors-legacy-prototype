@@ -10,4 +10,6 @@ public interface Readable<T extends ReadResult, U extends ReaderContext> extends
      * @return
      */
     T query(final U context);
+
+    boolean isOpen();
 }

@@ -25,14 +25,14 @@ public class LineSink extends RichSink<WriteResult,LineWriterContext,WriteIO> {
     }
 
     @Override
+    public boolean isOpen() {
+        return writer.isOpen();
+    }
+
+    @Override
     public void close() throws IOException {
         this.writer.close();
     }
-
-//    @Override
-//    public WriteResult write(LineWriterContext context) {
-//        return this.writer.write(context);
-//    }
 
     @Override
     public WriteResult write(WriterContext context) {

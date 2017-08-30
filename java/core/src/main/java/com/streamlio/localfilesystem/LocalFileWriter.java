@@ -33,11 +33,23 @@ public class LocalFileWriter implements Writeable<WriteResult, LineWriterContext
         LOG.info(context.getData());
         try {
             writer.write(context.getData());
+            writer.write("\n");
             writer.flush();
             return new SimpleWriteAck();
         } catch (IOException e) {
             LOG.error("Problem writing to file, " + linesWritten.get() + " lines written", e);
             return new SimpleWriteError();
+        }
+    }
+
+    @Override
+    public boolean isOpen() {
+        try {
+             writer.flush();
+             return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

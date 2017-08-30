@@ -11,4 +11,6 @@ public interface Sink<T extends WriteResult, U extends WriterContext, V extends 
      */
     Writeable<T,U> open(final V context);
 
+    boolean isOpen();
+
 }

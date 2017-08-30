@@ -34,12 +34,23 @@ public class LocalFileReader implements Readable<StringLineReadResult, ReaderCon
                 return new StringLineReadResult(id, line);
             } else {
                 LOG.info("Finished reading file, " + linesRead.get() + " lines read");
-                Thread.sleep(10000);
+                reader.close();
+                Thread.sleep(1000);
             }
         } catch (Exception e) {
             LOG.error("Problem reading file, " + linesRead.get() + " lines read", e);
         }
         return new StringLineEndReadResult();
+    }
+
+    @Override
+    public boolean isOpen() {
+        try {
+            return reader.ready();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

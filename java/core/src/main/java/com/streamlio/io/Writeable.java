@@ -10,4 +10,6 @@ public interface Writeable<T extends WriteResult, U extends WriterContext> exten
      * @return
      */
     T write(final U context);
+
+    boolean isOpen();
 }

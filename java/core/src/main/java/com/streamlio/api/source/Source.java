@@ -9,4 +9,6 @@ public interface Source<T extends ReadResult, U extends ReaderContext, V extends
 
     Readable<T,U> open(final V context);
 
+    boolean isOpen();
+
 }
