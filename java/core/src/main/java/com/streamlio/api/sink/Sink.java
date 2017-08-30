@@ -6,9 +6,9 @@ public interface Sink<T extends WriteResult, U extends WriterContext, V extends 
 
     /**
      *
-     * @param Context
+     * @param context
      * @return
      */
-    Writeable<T,U> open(V Context);
+    Writeable<T,U> open(final V context);
 
 }

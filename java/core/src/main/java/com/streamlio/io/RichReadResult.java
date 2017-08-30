@@ -2,7 +2,7 @@ package com.streamlio.io;
 
 import java.util.List;
 
-public class RichReadResult implements ReadResult{
+public class RichReadResult implements ReadResult {
 
     List<String> fieldNames;
 

@@ -10,7 +10,7 @@ import java.io.IOException;
 public class LineSink extends RichSink<WriteResult,LineWriterContext,WriteIO> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LineSink.class);
-    private Writeable<WriteResult, LineWriterContext> writer;
+    private Writeable writer;
     private final String fileName;
 
     public LineSink(final WriteIO context, final String fileName) {
@@ -19,7 +19,7 @@ public class LineSink extends RichSink<WriteResult,LineWriterContext,WriteIO> {
     }
 
     @Override
-    public Writeable<WriteResult, LineWriterContext> open(WriteIO Context) {
+    public Writeable open(WriteIO Context) {
         this.writer = new LocalFileWriter(this.fileName);
         return this.writer;
     }
@@ -27,11 +27,15 @@ public class LineSink extends RichSink<WriteResult,LineWriterContext,WriteIO> {
     @Override
     public void close() throws IOException {
         this.writer.close();
-
     }
 
+//    @Override
+//    public WriteResult write(LineWriterContext context) {
+//        return this.writer.write(context);
+//    }
+
     @Override
-    public WriteResult write(LineWriterContext context) {
-        this.writer.write(context);
+    public WriteResult write(WriterContext context) {
+        return this.writer.write(context);
     }
 }
