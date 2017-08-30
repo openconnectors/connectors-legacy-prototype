@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.cli;
+package com.streamlio.connectors.pulsar.cli;
 
 import com.streamlio.common.ConnectorExecutionException;
 import com.streamlio.connectors.pulsar.connect.runtime.ConnectorRunner;

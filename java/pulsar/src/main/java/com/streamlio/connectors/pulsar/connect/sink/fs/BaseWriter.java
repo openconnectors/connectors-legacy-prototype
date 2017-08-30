@@ -16,11 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.common.io.fs;
+package com.streamlio.connectors.pulsar.connect.sink.fs;
 
 import com.streamlio.common.io.FileSystems;
+import com.streamlio.common.io.fs.ResourceId;
 import com.streamlio.common.io.util.IoUtils;
-import com.streamlio.connectors.pulsar.connect.sink.fs.Writer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

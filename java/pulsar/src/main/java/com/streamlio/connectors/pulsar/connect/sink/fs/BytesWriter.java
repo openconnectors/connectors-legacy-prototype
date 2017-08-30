@@ -18,7 +18,6 @@
  */
 package com.streamlio.connectors.pulsar.connect.sink.fs;
 
-import com.streamlio.common.io.fs.BaseWriter;
 import org.apache.pulsar.client.api.Message;
 
 import java.io.IOException;
