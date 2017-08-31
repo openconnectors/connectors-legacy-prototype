@@ -24,8 +24,8 @@ import com.streamlio.common.util.Bytes;
 import com.streamlio.common.util.ConfigUtils;
 import com.streamlio.common.util.InstanceBuilder;
 import com.streamlio.common.util.PropertiesValidator;
-import com.streamlio.connectors.pulsar.connect.api.sink.SinkConnector;
-import com.streamlio.connectors.pulsar.connect.config.ConnectorConfiguration;
+import com.streamlio.api.SinkConnector;
+import com.streamlio.connectors.pulsar.connect.config.PulsarConnectorConfiguration;
 import com.streamlio.connectors.pulsar.connect.util.*;
 import org.apache.pulsar.client.api.*;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-class SinkConnectorRunner extends ConnectorRunner {
+class SinkConnectorRunner extends PulsarConnectorRunner {
     private static final Logger LOG = LoggerFactory.getLogger(SinkConnectorRunner.class);
 
     private static final long DEFAULT_ACK_INTERVAL_MB = 5;
@@ -52,7 +52,7 @@ class SinkConnectorRunner extends ConnectorRunner {
         this.properties = properties;
         commitIntervalBytesMb =
                 ConfigUtils.getLong(properties,
-                        ConnectorConfiguration.KEY_COMMIT_INTERVAL_MB, DEFAULT_ACK_INTERVAL_MB) * Bytes.MB;
+                        PulsarConnectorConfiguration.KEY_COMMIT_INTERVAL_MB, DEFAULT_ACK_INTERVAL_MB) * Bytes.MB;
     }
 
     @Override
@@ -61,8 +61,8 @@ class SinkConnectorRunner extends ConnectorRunner {
             //
             connector.initialize(properties);
 
-            final String topic = getProperty(ConnectorConfiguration.KEY_TOPIC);
-            final String subscription = getProperty(ConnectorConfiguration.KEY_SUBSCRIPTION);
+            final String topic = getProperty(PulsarConnectorConfiguration.KEY_TOPIC);
+            final String subscription = getProperty(PulsarConnectorConfiguration.KEY_SUBSCRIPTION);
             final ConsumerConfiguration configuration =
                     new ConsumerConfiguration().setSubscriptionType(SubscriptionType.Failover);
 
@@ -136,14 +136,14 @@ class SinkConnectorRunner extends ConnectorRunner {
 
     public static SinkConnectorRunner fromProperties(Properties properties) {
         PropertiesValidator.validateThrowIfMissingKeys(properties,
-                ConnectorConfiguration.KEY_SUBSCRIPTION);
+                PulsarConnectorConfiguration.KEY_SUBSCRIPTION);
 
         FileSystems.register(properties);
 
         final SinkConnector connector;
         try {
             final String sinkConnectorClass =
-                    properties.getProperty(ConnectorConfiguration.KEY_CONNECTOR);
+                    properties.getProperty(PulsarConnectorConfiguration.KEY_CONNECTOR);
             connector = InstanceBuilder
                     .ofType(SinkConnector.class)
                     .fromClassName(sinkConnectorClass)

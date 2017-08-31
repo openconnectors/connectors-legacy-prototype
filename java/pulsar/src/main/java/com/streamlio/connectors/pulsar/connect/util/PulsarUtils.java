@@ -18,7 +18,7 @@
  */
 package com.streamlio.connectors.pulsar.connect.util;
 
-import com.streamlio.connectors.pulsar.connect.config.ConnectorConfiguration;
+import com.streamlio.connectors.pulsar.connect.config.PulsarConnectorConfiguration;
 import org.apache.pulsar.client.api.ClientConfiguration;
 import org.apache.pulsar.client.api.PulsarClient;
 import org.apache.pulsar.client.api.PulsarClientException;
@@ -31,11 +31,11 @@ public final class PulsarUtils {
     public static PulsarClient createClient(Properties properties) throws PulsarClientException {
         final ClientConfiguration configuration = new ClientConfiguration();
         configuration.setOperationTimeout(
-                ConnectorConfiguration.DEFAULT_OPERATION_TIMEOUT_SECONDS,
+                PulsarConnectorConfiguration.DEFAULT_OPERATION_TIMEOUT_SECONDS,
                 TimeUnit.SECONDS);
         final String serviceUrl =
-                properties.getProperty(ConnectorConfiguration.KEY_SERVICE_URL,
-                        ConnectorConfiguration.DEFAULT_SERVICE_URL);
+                properties.getProperty(PulsarConnectorConfiguration.KEY_SERVICE_URL,
+                        PulsarConnectorConfiguration.DEFAULT_SERVICE_URL);
 
         return PulsarClient.create(serviceUrl, configuration);
     }

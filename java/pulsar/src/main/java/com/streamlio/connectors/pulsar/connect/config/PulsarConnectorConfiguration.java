@@ -16,27 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.sink.fs;
+package com.streamlio.connectors.pulsar.connect.config;
 
-import org.apache.pulsar.client.api.Message;
+public class PulsarConnectorConfiguration {
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
+    public static final int DEFAULT_OPERATION_TIMEOUT_SECONDS = 60 * 5; // 5 minutes
 
-public class BytesWriter extends BaseWriter {
+    public static final String KEY_SERVICE_URL = "pulsar.url";
+    public static final String DEFAULT_SERVICE_URL = "pulsar://localhost:6650";
 
-    private final ByteBuffer header = ByteBuffer.allocate(4);
+    public static final String KEY_CONNECTOR = "connector";
 
-    @Override
-    public void write(Message message) throws IOException {
-        final byte[] data = message.getData();
-        final int size = data.length;
-        header.clear();
-        header.putInt(size);
+    public static final String KEY_TOPIC = "topic";
 
-        final OutputStream stream = getStream();
-        stream.write(header.array());
-        stream.write(message.getData());
-    }
+    public static final String KEY_SUBSCRIPTION = "subscription";
+
+    public static final String KEY_COMMIT_INTERVAL_MB = "commit.interval.bytes.mb";
+
+    private PulsarConnectorConfiguration() {}
 }

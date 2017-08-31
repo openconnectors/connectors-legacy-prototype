@@ -20,20 +20,20 @@ package com.streamlio.connectors.pulsar.connect.runtime;
 
 import com.streamlio.common.ConnectorExecutionException;
 import com.streamlio.common.util.PropertiesValidator;
-import com.streamlio.connectors.pulsar.connect.api.sink.SinkConnector;
-import com.streamlio.connectors.pulsar.connect.config.ConnectorConfiguration;
+import com.streamlio.api.SinkConnector;
+import com.streamlio.connectors.pulsar.connect.config.PulsarConnectorConfiguration;
 
 import java.util.Properties;
 
-public abstract class ConnectorRunner {
+public abstract class PulsarConnectorRunner {
 
-    public static ConnectorRunner fromProperties(Properties properties) {
+    public static PulsarConnectorRunner fromProperties(Properties properties) {
         PropertiesValidator.validateThrowIfMissingKeys(properties,
-                ConnectorConfiguration.KEY_TOPIC,
-                ConnectorConfiguration.KEY_CONNECTOR);
+                PulsarConnectorConfiguration.KEY_TOPIC,
+                PulsarConnectorConfiguration.KEY_CONNECTOR);
 
         try {
-            final String connectorClass = properties.getProperty(ConnectorConfiguration.KEY_CONNECTOR);
+            final String connectorClass = properties.getProperty(PulsarConnectorConfiguration.KEY_CONNECTOR);
             if (SinkConnector.class.isAssignableFrom(Class.forName(connectorClass))) {
                 return SinkConnectorRunner.fromProperties(properties);
             }

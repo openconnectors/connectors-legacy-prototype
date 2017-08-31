@@ -16,17 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.api.sink;
+package com.streamlio.api;
 
 import com.streamlio.api.Connector;
-import org.apache.pulsar.client.api.Message;
 
 import java.io.IOException;
 
-public abstract class SinkConnector implements Connector {
+public abstract class SinkConnector<T> implements Connector {
 
     // returns true if the we should perform an ack
-    public abstract void processMessage(Message message) throws IOException;
+    public abstract void processMessage(T message) throws IOException;
 
     // called before an ack is sent
     // consumers should save their state

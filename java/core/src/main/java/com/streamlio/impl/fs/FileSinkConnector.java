@@ -16,13 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.sink.fs;
+package com.streamlio.impl.fs;
 
+import com.streamlio.api.SinkConnector;
+import com.streamlio.api.source.Message;
 import com.streamlio.common.io.util.IoUtils;
-import com.streamlio.connectors.pulsar.connect.api.sink.SinkConnector;
-import com.streamlio.connectors.pulsar.connect.config.ConnectorConfiguration;
 import com.streamlio.common.util.Bytes;
-import org.apache.pulsar.client.api.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +34,7 @@ import java.util.Properties;
 /**
  * Write files in the following format /base-path/{date}/output-{time}
  */
-public class FileSinkConnector extends SinkConnector {
+public class FileSinkConnector<T extends Message> extends SinkConnector<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileSinkConnector.class);
 
@@ -49,26 +48,19 @@ public class FileSinkConnector extends SinkConnector {
     private final DateFormat timeFormat = new SimpleDateFormat(DEFAULT_TIME_FORMAT);
 
     private String basePath;
-    private String topic;
-    private String subscription;
-
     private Writer writer;
     private long bytesWritten = 0;
     private String fileUri;
 
     @Override
     public void initialize(Properties properties) {
-        topic = properties.getProperty(ConnectorConfiguration.KEY_TOPIC);
-        subscription = properties.getProperty(ConnectorConfiguration.KEY_SUBSCRIPTION);
         basePath = properties.getProperty(KEY_BASE_PATH);
     }
 
     @Override
-    public void processMessage(Message message) throws IOException {
+    public void processMessage(T message) throws IOException {
         Writer writer = getWriterAndOpenIfNecessary();
-
         writer.write(message);
-
         bytesWritten += message.getData().length;
     }
 

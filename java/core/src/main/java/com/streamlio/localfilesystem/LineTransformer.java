@@ -1,7 +1,6 @@
-package com.streamlio.runner;
+package com.streamlio.localfilesystem;
 
-import com.streamlio.localfilesystem.LineWriterContext;
-import com.streamlio.localfilesystem.StringLineReadResult;
+import com.streamlio.runner.Mapper;
 
 import java.io.IOException;
 

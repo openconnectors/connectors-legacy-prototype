@@ -19,7 +19,7 @@
 package com.streamlio.connectors.pulsar.cli;
 
 import com.streamlio.common.ConnectorExecutionException;
-import com.streamlio.connectors.pulsar.connect.runtime.ConnectorRunner;
+import com.streamlio.connectors.pulsar.connect.runtime.PulsarConnectorRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +52,7 @@ public final class Connect {
         }
         LOG.info("running connect with properties\n\n{}", sb);
 
-        final ConnectorRunner runner = ConnectorRunner.fromProperties(properties);
+        final PulsarConnectorRunner runner = PulsarConnectorRunner.fromProperties(properties);
         runner.run();
     }
 }

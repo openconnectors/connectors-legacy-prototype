@@ -16,16 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.sink;
+package com.streamlio.impl;
 
-import com.streamlio.connectors.pulsar.connect.api.sink.SinkConnector;
-import org.apache.pulsar.client.api.Message;
+import com.streamlio.api.source.Message;
+import com.streamlio.api.SinkConnector;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Properties;
 
-public class PrintSinkConnector extends SinkConnector {
+public class PrintSinkConnector<T extends Message> extends SinkConnector<T> {
 
     private static final String OUTPUT_FORMAT = "[%s] %s";
 
@@ -42,7 +42,7 @@ public class PrintSinkConnector extends SinkConnector {
     }
 
     @Override
-    public void processMessage(Message message) throws IOException {
+    public void processMessage(T message) throws IOException {
         final String output = String.format(OUTPUT_FORMAT,
                 message.getMessageId().toString(),
                 new String(message.getData()));

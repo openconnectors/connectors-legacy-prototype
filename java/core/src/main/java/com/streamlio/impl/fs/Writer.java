@@ -16,22 +16,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.config;
+package com.streamlio.impl.fs;
 
-public class ConnectorConfiguration {
+import com.streamlio.api.source.Message;
 
-    public static final int DEFAULT_OPERATION_TIMEOUT_SECONDS = 60 * 5; // 5 minutes
+import java.io.Closeable;
+import java.io.IOException;
 
-    public static final String KEY_SERVICE_URL = "pulsar.url";
-    public static final String DEFAULT_SERVICE_URL = "pulsar://localhost:6650";
+public interface Writer<T extends Message> extends Closeable {
 
-    public static final String KEY_CONNECTOR = "connector";
+    void open(String path) throws IOException;
 
-    public static final String KEY_TOPIC = "topic";
+    void write(T message) throws IOException;
 
-    public static final String KEY_SUBSCRIPTION = "subscription";
+    void flush() throws IOException;
 
-    public static final String KEY_COMMIT_INTERVAL_MB = "commit.interval.bytes.mb";
-
-    private ConnectorConfiguration() {}
+    boolean isOpen();
 }

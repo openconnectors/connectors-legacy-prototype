@@ -16,20 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.sink.fs;
+package com.streamlio.impl.fs;
 
-import org.apache.pulsar.client.api.Message;
 
-import java.io.Closeable;
+import com.streamlio.api.source.Message;
+
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
 
-public interface Writer extends Closeable {
+public class BytesWriter extends BaseWriter {
 
-    void open(String path) throws IOException;
+    private final ByteBuffer header = ByteBuffer.allocate(4);
 
-    void write(Message message) throws IOException;
+    @Override
+    public void write(Message message) throws IOException {
+        final byte[] data = message.getData();
+        final int size = data.length;
+        header.clear();
+        header.putInt(size);
 
-    void flush() throws IOException;
-
-    boolean isOpen();
+        final OutputStream stream = getStream();
+        stream.write(header.array());
+        stream.write(message.getData());
+    }
 }
