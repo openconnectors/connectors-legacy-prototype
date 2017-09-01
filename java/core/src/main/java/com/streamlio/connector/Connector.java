@@ -16,28 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.impl.fs;
+package com.streamlio.connector;
 
+import com.streamlio.util.Versionable;
 
-import com.streamlio.message.Message;
+import java.io.Closeable;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
+public interface Connector extends Closeable, Versionable {
 
-public class BytesWriter extends BaseWriter {
-
-    private final ByteBuffer header = ByteBuffer.allocate(4);
-
-    @Override
-    public void write(Message message) throws IOException {
-        final byte[] data = message.getData();
-        final int size = data.length;
-        header.clear();
-        header.putInt(size);
-
-        final OutputStream stream = getStream();
-        stream.write(header.array());
-        stream.write(message.getData());
-    }
+    void initialize();
 }

@@ -1,7 +1,7 @@
 package com.streamlio.runner;
 
-import com.streamlio.api.sink.Sink;
-import com.streamlio.api.source.Source;
+import com.streamlio.sink.Sink;
+import com.streamlio.source.Source;
 
 import java.io.Closeable;
 

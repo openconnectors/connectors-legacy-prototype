@@ -3,7 +3,7 @@
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
+ * to you under the Apache License, LocalFSConVer 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
@@ -24,7 +24,7 @@ import com.streamlio.common.util.Bytes;
 import com.streamlio.common.util.ConfigUtils;
 import com.streamlio.common.util.InstanceBuilder;
 import com.streamlio.common.util.PropertiesValidator;
-import com.streamlio.api.SinkConnector;
+import com.streamlio.connector.SinkConnector;
 import com.streamlio.connectors.pulsar.connect.config.PulsarConnectorConfiguration;
 import com.streamlio.connectors.pulsar.connect.util.*;
 import org.apache.pulsar.client.api.*;

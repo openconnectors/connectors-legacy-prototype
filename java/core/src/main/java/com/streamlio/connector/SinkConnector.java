@@ -16,28 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.impl.fs;
-
-
-import com.streamlio.message.Message;
+package com.streamlio.connector;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
 
-public class BytesWriter extends BaseWriter {
+public abstract class SinkConnector<T> implements Connector {
 
-    private final ByteBuffer header = ByteBuffer.allocate(4);
+    public abstract void processMessage(T message) throws IOException;
 
-    @Override
-    public void write(Message message) throws IOException {
-        final byte[] data = message.getData();
-        final int size = data.length;
-        header.clear();
-        header.putInt(size);
-
-        final OutputStream stream = getStream();
-        stream.write(header.array());
-        stream.write(message.getData());
-    }
+    // called before an ack is sent
+    // consumers should save their state
+    public abstract void commit() throws Exception;
 }

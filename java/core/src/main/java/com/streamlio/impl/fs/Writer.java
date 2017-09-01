@@ -18,7 +18,7 @@
  */
 package com.streamlio.impl.fs;
 
-import com.streamlio.api.source.Message;
+import com.streamlio.message.Message;
 
 import java.io.Closeable;
 import java.io.IOException;

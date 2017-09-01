@@ -4,12 +4,12 @@ import java.io.Closeable;
 
 public interface Writeable<T extends WriteResult, U extends WriterContext> extends Closeable {
 
-    /**
-     *
-     * @param context
-     * @return
-     */
-    T write(final U context);
-
-    boolean isOpen();
+//    /**
+//     *
+//     * @param context
+//     * @return
+//     */
+//    T write(final U context);
+//
+//    boolean isOpen();
 }
