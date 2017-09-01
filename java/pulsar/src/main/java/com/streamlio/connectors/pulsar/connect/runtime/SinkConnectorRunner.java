@@ -24,7 +24,7 @@ import com.streamlio.common.util.Bytes;
 import com.streamlio.common.util.ConfigUtils;
 import com.streamlio.common.util.InstanceBuilder;
 import com.streamlio.common.util.PropertiesValidator;
-import com.streamlio.connector.SinkConnector;
+import com.streamlio.connect.SinkConnector;
 import com.streamlio.connectors.pulsar.connect.config.PulsarConnectorConfiguration;
 import com.streamlio.connectors.pulsar.connect.util.*;
 import org.apache.pulsar.client.api.*;

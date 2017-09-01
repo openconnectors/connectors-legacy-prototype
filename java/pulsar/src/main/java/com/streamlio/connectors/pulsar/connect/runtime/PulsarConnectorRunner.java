@@ -20,7 +20,7 @@ package com.streamlio.connectors.pulsar.connect.runtime;
 
 import com.streamlio.common.ConnectorExecutionException;
 import com.streamlio.common.util.PropertiesValidator;
-import com.streamlio.connector.SinkConnector;
+import com.streamlio.connect.SinkConnector;
 import com.streamlio.connectors.pulsar.connect.config.PulsarConnectorConfiguration;
 
 import java.util.Properties;

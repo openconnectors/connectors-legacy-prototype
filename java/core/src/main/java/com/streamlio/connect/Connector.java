@@ -16,21 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connector;
+package com.streamlio.connect;
 
 import com.streamlio.config.Config;
-import com.streamlio.io.SinkContext;
 import com.streamlio.util.TaskConfig;
 import com.streamlio.util.Versionable;
 
-public abstract class Connector<T extends TaskConfig, U extends SinkContext, V extends Config>
+public abstract class Connector<T extends TaskConfig, U extends ConnectorContext, V extends Config>
         implements Versionable {
 
     private T taskConfig;
     private U context;
     private int taskParallelism;
-
-    public abstract String version();
 
     public void initialize(U ctx){
         this.context = ctx;
@@ -47,16 +44,14 @@ public abstract class Connector<T extends TaskConfig, U extends SinkContext, V e
     public void initialize(U ctx, T taskConfig, int taskParallelism){
         this.context = ctx;
         this.taskConfig = taskConfig;
-        this.taskParallelism = this.taskParallelism;
+        this.taskParallelism = taskParallelism;
     }
 
-    public abstract void open(V config);
+    public abstract void open(V config) throws Exception;
 
-    public abstract void close();
+    public abstract void close() throws Exception;
 
-    public abstract void commit();
-
-    public void reset(V config){
+    public void reset(V config) throws Exception{
         close();
         open(config);
     }

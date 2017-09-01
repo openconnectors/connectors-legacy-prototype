@@ -1,4 +1,4 @@
-package com.streamlio.connector;
+package com.streamlio.connect;
 
 public interface ConnectorContext {
 }

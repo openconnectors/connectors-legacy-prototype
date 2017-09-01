@@ -1,9 +1,9 @@
 package com.streamlio.message;
 
 
-public interface Message {
+public interface Message<T extends MessageId> {
 
     byte[] getData();
 
-    MessageId getMessageId();
+    T getMessageId();
 }
