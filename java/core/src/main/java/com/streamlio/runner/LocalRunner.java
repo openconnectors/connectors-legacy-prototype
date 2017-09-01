@@ -4,7 +4,7 @@
 //
 //import java.io.IOException;
 //
-//public class LocalRunner extends Runner<LineSource,LineTransformer,LineSink>{
+//public class LocalRunner extends Runner<LineFSSource,LineTransformer,LocalFSSink>{
 //
 //    private String sourceFileName;
 //    private String targetFileName;
@@ -16,8 +16,8 @@
 //
 //    @Override
 //    public void setup() {
-//        this.source = new LineSource(null, sourceFileName);
-//        this.sink = new LineSink(null, targetFileName);
+//        this.source = new LineFSSource(null, sourceFileName);
+//        this.sink = new LocalFSSink(null, targetFileName);
 //        this.source.open(null);
 //        this.sink.open(null);
 //        this.mapper = new LineTransformer();

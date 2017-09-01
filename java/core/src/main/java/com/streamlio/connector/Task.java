@@ -1,4 +1,4 @@
-package com.streamlio.task;
+package com.streamlio.connector;
 
 import com.streamlio.util.Versionable;
 import com.streamlio.config.Config;

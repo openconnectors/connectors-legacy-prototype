@@ -1,9 +1,16 @@
 package com.streamlio.sink;
 
-import com.streamlio.connector.Connector;
 import com.streamlio.config.Config;
-import com.streamlio.io.*;
+import com.streamlio.util.TaskConfig;
+import com.streamlio.io.SinkContext;
+import com.streamlio.message.SinkMessage;
 
-public interface SinkConnector<T extends WriteResult, U extends WriterContext, V extends Config> extends Connector {
+import java.util.Collection;
+
+public abstract class SinkConnector<T extends TaskConfig, U extends SinkContext, V extends Config>{
+
+    public abstract void publish(final Collection<SinkMessage> messages);
+
+    public abstract void flush();
 
 }

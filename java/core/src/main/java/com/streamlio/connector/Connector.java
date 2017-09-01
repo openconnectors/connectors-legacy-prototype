@@ -18,11 +18,54 @@
  */
 package com.streamlio.connector;
 
+import com.streamlio.config.Config;
+import com.streamlio.io.SinkContext;
+import com.streamlio.util.TaskConfig;
 import com.streamlio.util.Versionable;
 
-import java.io.Closeable;
+public abstract class Connector<T extends TaskConfig, U extends SinkContext, V extends Config>
+        implements Versionable {
 
-public interface Connector extends Closeable, Versionable {
+    private T taskConfig;
+    private U context;
+    private int taskParallelism;
 
-    void initialize();
+    public abstract String version();
+
+    public void initialize(U ctx){
+        this.context = ctx;
+        this.taskConfig = null;
+        this.taskParallelism = 1;
+    }
+
+    public void initialize(U ctx, T taskConfig){
+        this.context = ctx;
+        this.taskConfig = taskConfig;
+        this.taskParallelism = 1;
+    }
+
+    public void initialize(U ctx, T taskConfig, int taskParallelism){
+        this.context = ctx;
+        this.taskConfig = taskConfig;
+        this.taskParallelism = this.taskParallelism;
+    }
+
+    public abstract void open(V config);
+
+    public abstract void close();
+
+    public abstract void commit();
+
+    public void reset(V config){
+        close();
+        open(config);
+    }
+
+    public T getTaskConfig() {
+        return taskConfig;
+    }
+
+    public U getContext() {
+        return context;
+    }
 }

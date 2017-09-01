@@ -1,11 +1,11 @@
 package com.streamlio.runner;
 
 import com.streamlio.io.ReadResult;
-import com.streamlio.io.WriterContext;
+import com.streamlio.io.SinkContext;
 
 import java.io.Closeable;
 
-public abstract class Mapper<T extends ReadResult, U extends WriterContext> implements Closeable{
+public abstract class Mapper<T extends ReadResult, U extends SinkContext> implements Closeable{
 
     abstract public void setup();
 

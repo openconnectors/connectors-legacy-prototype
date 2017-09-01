@@ -1,8 +1,8 @@
 package com.streamlio.localfs;
 
-import com.streamlio.io.WriterContext;
+import com.streamlio.io.SinkContext;
 
-public class LineWriterContext implements WriterContext {
+public class LineWriterContext implements SinkContext {
 
     private final String data;
 

@@ -1,6 +1,5 @@
 package com.streamlio.localfs;
 
-import com.streamlio.source.RichSource;
 import com.streamlio.config.MapConfig;
 import com.streamlio.io.Readable;
 import com.streamlio.io.ReaderContext;
@@ -9,12 +8,12 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class LineSource extends RichSource<StringLineReadResult, ReaderContext, MapConfig> {
+public class LineFSSource extends SourceConnector {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LineSink.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalFSSink.class);
     private Readable<StringLineReadResult, ReaderContext> reader;
 
-    public LineSource(MapConfig config) {
+    public LineFSSource(MapConfig config) {
         super(config);
     }
 
