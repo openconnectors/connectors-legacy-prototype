@@ -3,7 +3,7 @@ package com.streamlio.config;
 import java.util.HashMap;
 import java.util.Set;
 
-public class MapConfig implements Config{
+public class MapConfig implements Config {
 
     final HashMap<String, Object> properties;
 
@@ -17,31 +17,44 @@ public class MapConfig implements Config{
 
     @Override
     public String getString(String propertyName) {
+        if (isNull(propertyName, properties)) return null;
         return properties.get(propertyName).toString();
     }
 
     @Override
     public Integer getInt(String propertyName) {
+        if (isNull(propertyName, properties)) return null;
         return Integer.parseInt(properties.get(propertyName).toString());
+    }
+
+    private static boolean isNull(String propertyName, HashMap<String, Object> properties) {
+        if(properties == null || propertyName == null || properties.containsKey(propertyName) == false){
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Long getLong(String propertyName) {
+        if (isNull(propertyName, properties)) return null;
         return Long.parseLong(properties.get(propertyName).toString());
     }
 
     @Override
     public Double getDouble(String propertyName) {
+        if (isNull(propertyName, properties)) return null;
         return Double.parseDouble(properties.get(propertyName).toString());
     }
 
     @Override
     public Boolean getBoolean(String propertyName) {
+        if (isNull(propertyName, properties)) return null;
         return Boolean.parseBoolean(properties.get(propertyName).toString());
     }
 
     @Override
     public Character getCharacter(String propertyName) {
+        if (isNull(propertyName, properties)) return null;
         final String temp = properties.get(propertyName).toString();
         if(temp != null && temp.length() > 0){
             return properties.get(propertyName).toString().charAt(0);
@@ -103,6 +116,9 @@ public class MapConfig implements Config{
 
     @Override
     public Set<String> getPropertyKeys() {
+        if(properties == null){
+            return null;
+        }
         return properties.keySet();
     }
 }

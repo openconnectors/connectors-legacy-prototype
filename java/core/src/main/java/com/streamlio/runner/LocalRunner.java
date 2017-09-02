@@ -1,50 +1,40 @@
 package com.streamlio.runner;
 
-import com.streamlio.localfs.*;
+import com.streamlio.config.MapConfig;
+import com.streamlio.connect.SinkConnector;
+import com.streamlio.connect.SourceConnector;
+import com.streamlio.connect.SourceContext;
+import com.streamlio.localfs.FSCopyContext;
+import com.streamlio.localfs.LocalFSSource;
+import com.streamlio.localfs.LocalFSSink;
 
-import java.io.IOException;
+import java.util.HashMap;
 
 public class LocalRunner extends BasicRunner {
 
-    private String sourceFileName;
-    private String targetFileName;
-
-    public LocalRunner(String sourceFileName, String targetFileName){
-        this.sourceFileName = sourceFileName;
-        this.targetFileName = targetFileName;
+    public LocalRunner(SourceConnector source, SourceContext sourceContext, SinkConnector sink) {
+        super(source, sourceContext, sink);
     }
 
-    @Override
-    public void setup() {
-        this.source = new LineFSSource(null, sourceFileName);
-        this.sink = new LocalFSSink(null, targetFileName);
-        this.source.open(null);
-        this.sink.open(null);
-        this.mapper = new LineTransformer();
-    }
+    public static void main(String[] args) throws Exception {
 
-    @Override
-    public void start() {
-        while(source.isOpen() && sink.isOpen()){
-            sink.write(mapper.transform(source.query(null)));
-        }
-    }
+          LocalRunner runner = new LocalRunner(new LocalFSSource(), new FSCopyContext(new LocalFSSink()), new LocalFSSink());
 
-    @Override
-    public void close() throws IOException {
-        this.source.close();
-        this.sink.close();
-    }
+          HashMap<String, Object> props = new HashMap<>();
 
-    public static void main(String[] args) throws IOException {
+          MapConfig config = new MapConfig(props);
 
-        LocalRunner lr = new LocalRunner(
-                "/Users/a.ahmed/Desktop/test.txt",
-                "/Users/a.ahmed/Desktop/test_out.txt");
+          runner.setup(config);
 
-        lr.setup();
-        lr.start();
-        lr.close();
+          runner.run();
+
+//        LocalRunner lr = new LocalRunner(
+//                "/Users/a.ahmed/Desktop/test.txt",
+//                "/Users/a.ahmed/Desktop/test_out.txt");
+//
+//        lr.setup();
+//        lr.start();
+//        lr.close();
     }
 
 

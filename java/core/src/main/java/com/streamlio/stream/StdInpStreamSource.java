@@ -10,6 +10,7 @@ import com.streamlio.util.SourceTaskConfig;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collection;
@@ -37,12 +38,12 @@ public class StdInpStreamSource extends SourceConnector<SourceTaskConfig,SourceC
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
         stream.close();
     }
 
     @Override
-    public void start(SourceContext<Message> ctx) throws Exception {
+    public void start(SourceContext<Message, Config> ctx) throws Exception {
 
         while (true) {
             Thread.sleep(10);

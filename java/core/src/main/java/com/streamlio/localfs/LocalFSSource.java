@@ -1,6 +1,6 @@
 package com.streamlio.localfs;
 
-import com.streamlio.config.MapConfig;
+import com.streamlio.config.Config;
 import com.streamlio.connect.SourceConnector;
 import com.streamlio.connect.SourceContext;
 import com.streamlio.util.SourceConnectorContext;
@@ -16,16 +16,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class LineFSSource extends SourceConnector
-        <SourceTaskConfig,SourceConnectorContext,MapConfig,LineDataMessage> {
+public class LocalFSSource extends SourceConnector
+        <SourceTaskConfig,SourceConnectorContext,Config,LineDataMessage> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LineFSSource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalFSSource.class);
 
     private BufferedReader reader;
     private AtomicLong linesRead;
 
     @Override
-    public void open(MapConfig config) throws Exception {
+    public void open(Config config) throws Exception {
         reader = new BufferedReader(new FileReader(
                 config.getString(ConfigKeys.INPUT_FILEPATH_KEY)));
         linesRead = new AtomicLong(0);

@@ -11,10 +11,6 @@ public abstract class SourceConnector
         <T extends SourceTaskConfig, U extends SourceConnectorContext, V extends Config, W extends Message>
         extends Connector<T,U,V> implements Task<SourceContext<W>>{
 
-//    public abstract void start(final SourceContext<W> ctx) throws Exception;
-//
-//    public abstract void stop(final SourceContext<W> ctx) throws Exception;
-
     public abstract Collection<W> poll() throws Exception;
 
 }

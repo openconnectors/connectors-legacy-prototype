@@ -20,12 +20,18 @@ import java.util.Collection;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class LocalFSSink extends SinkConnector
-        <SinkTaskConfig,SinkConnectorContext,MapConfig,LineDataMessage>{
+        <SinkTaskConfig,SinkConnectorContext,Config,LineDataMessage>{
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalFSSink.class);
 
     private BufferedWriter writer;
     private AtomicLong linesWritten;
+
+    @Override
+    public void open(Config config) throws Exception {
+        writer = new BufferedWriter(new FileWriter(config.getString(ConfigKeys.OUTPUT_FILEPATH_KEY)));
+        linesWritten = new AtomicLong(0);
+    }
 
     @Override
     public void publish(Collection<LineDataMessage> lines) throws Exception {
@@ -46,12 +52,6 @@ public class LocalFSSink extends SinkConnector
     @Override
     public void flush() throws Exception {
         writer.flush();
-    }
-
-    @Override
-    public void open(MapConfig config) throws Exception {
-        writer = new BufferedWriter(new FileWriter(config.getString(ConfigKeys.OUTPUT_FILEPATH_KEY)));
-        linesWritten = new AtomicLong(0);
     }
 
     @Override
