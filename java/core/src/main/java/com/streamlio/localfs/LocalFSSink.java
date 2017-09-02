@@ -55,7 +55,7 @@ public class LocalFSSink extends SinkConnector
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
         writer.close();
     }
 

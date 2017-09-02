@@ -1,14 +1,15 @@
 package com.streamlio.runner;
 
-import com.streamlio.io.ReadResult;
-import com.streamlio.util.SinkConnectorContext;
+import com.streamlio.config.Config;
+import com.streamlio.message.Message;
 
 import java.io.Closeable;
+import java.util.Collection;
 
-public abstract class Mapper<T extends ReadResult, U extends SinkConnectorContext> implements Closeable{
+public abstract class Mapper<T extends Message, U extends Message> implements Closeable {
 
-    abstract public void setup();
+    abstract public void setup(Config config);
 
-    abstract public U transform(T readResult);
+    abstract public Collection<U> transform(Collection<T> inputMessages);
 
 }

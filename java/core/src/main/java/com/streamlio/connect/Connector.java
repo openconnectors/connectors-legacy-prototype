@@ -22,8 +22,10 @@ import com.streamlio.config.Config;
 import com.streamlio.util.TaskConfig;
 import com.streamlio.util.Versionable;
 
+import java.io.Closeable;
+
 public abstract class Connector<T extends TaskConfig, U extends ConnectorContext, V extends Config>
-        implements Versionable {
+        implements Versionable, Closeable{
 
     private T taskConfig;
     private U context;
@@ -48,8 +50,6 @@ public abstract class Connector<T extends TaskConfig, U extends ConnectorContext
     }
 
     public abstract void open(V config) throws Exception;
-
-    public abstract void close() throws Exception;
 
     public void reset(V config) throws Exception{
         close();
