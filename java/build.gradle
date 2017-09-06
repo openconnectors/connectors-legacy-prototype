@@ -32,11 +32,59 @@ subprojects {
         testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
  	}
 
+  task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+  }
+
+  task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+  }
+
+  artifacts {
+    archives sourcesJar
+    archives javadocJar
+  }
+
   task fatJar(type: Jar) {
       baseName = project.name + '-uber'
       from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
       with jar
   }
+
+  task createPom {
+    apply plugin: 'maven'
+    description "Generates pom.xml"
+    pom {
+        project {
+            groupId 'org.streamlio.connectors'
+            artifactId 'connector' + '-' + project.name
+            version '0.0.1-SNAPSHOT'
+            packaging 'jar'
+        }
+    }.withXml {
+        def dependenciesNode = asNode().appendNode('dependencies')
+
+        configurations.compile.allDependencies.each { dependency ->
+            def dependencyNode = dependenciesNode.appendNode('dependency')
+            dependencyNode.appendNode('groupId', dependency.group)
+            dependencyNode.appendNode('artifactId', dependency.name)
+            dependencyNode.appendNode('version', dependency.version)
+
+            // for exclusions
+            if (dependency.excludeRules.size() > 0) {
+                def exclusions = dependencyNode.appendNode('exclusions')
+                dependency.excludeRules.each { ExcludeRule ex ->
+                    def exclusion = exclusions.appendNode('exclusion')
+                    exclusion.appendNode('groupId', ex.group)
+                    exclusion.appendNode('artifactId', ex.module)
+                }
+            }
+        }
+    }.writeTo("$buildDir/pom.xml")
+  }
+
 }
 
 //Core
