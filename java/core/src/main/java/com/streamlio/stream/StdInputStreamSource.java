@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class StdInpStreamSource extends SourceConnector<SourceTaskConfig,SourceConnectorContext,Config,Message> {
+public class StdInputStreamSource extends SourceConnector<SourceTaskConfig,SourceConnectorContext,Config,Message> {
 
     private InputStream stream;
     private InputStreamReader streamReader;

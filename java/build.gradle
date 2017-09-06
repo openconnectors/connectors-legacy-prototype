@@ -13,19 +13,30 @@ subprojects {
 	targetCompatibility = 1.8
 
  	repositories {
-		  jcenter()
+        jcenter()
   	}
 
   	test {
-		  useTestNG()
+        useTestNG()
 	}
 
 	dependencies {
 		compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-		compile group: 'com.twitter.heron', name: 'heron-api', version: '0.15.1'
-    	testCompile 'org.testng:testng:6.11'
-    	testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+		compile group: 'com.twitter.heron', name: 'heron-api', version: '0.15.2'
+        compile group: 'com.google.guava', name: 'guava', version: '23.0'
+        compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.0'
+        compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.0'
+        compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.9.0'
+
+    testCompile 'org.testng:testng:6.11'
+        testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
  	}
+
+  task fatJar(type: Jar) {
+      baseName = project.name + '-uber'
+      from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+      with jar
+  }
 }
 
 //Core

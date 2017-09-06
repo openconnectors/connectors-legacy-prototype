@@ -1,11 +1,13 @@
 package com.streamlio.stream;
 
+import com.google.common.primitives.Longs;
 import com.streamlio.config.Config;
 import com.streamlio.connect.SinkConnector;
 import com.streamlio.message.Message;
 import com.streamlio.util.SinkConnectorContext;
 import com.streamlio.util.SinkTaskConfig;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
 
@@ -18,12 +20,12 @@ public class PrintStreamSink extends SinkConnector<SinkTaskConfig,SinkConnectorC
     @Override
     public void publish(Collection<Message> messages) throws Exception {
         for(Message message : messages){
-            final String output = String.format(outputFormat,
-                    message.getMessageId().toString(),
+            final String output = String.format(
+                    outputFormat,
+                    Longs.fromByteArray(message.getMessageId().toByteArray()),
                     new String(message.getData()));
             stream.println(output);
         }
-
     }
 
     @Override
@@ -38,12 +40,12 @@ public class PrintStreamSink extends SinkConnector<SinkTaskConfig,SinkConnectorC
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
         stream.close();
     }
 
     @Override
     public String getVersion() {
-        return null;
+        return StdStreamConVer.getVersion();
     }
 }

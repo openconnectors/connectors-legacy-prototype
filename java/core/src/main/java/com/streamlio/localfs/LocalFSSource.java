@@ -43,17 +43,16 @@ public class LocalFSSource extends SourceConnector
 
 
     @Override
-    public void start(SourceContext<LineDataMessage> ctx) throws Exception {
+    public void start(SourceContext<LineDataMessage,Config> ctx) throws Exception {
         try {
-            String line = reader.readLine();
-            if (line != null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 long id = linesRead.incrementAndGet();
                 ctx.collect(Collections.singletonList(new LineDataMessage(id, line)));
-            } else {
-                LOG.info("Finished reading file, " + linesRead.get() + " lines read");
-                this.close();
-                ctx.close();
             }
+            LOG.info("Finished reading file, " + linesRead.get() + " lines read");
+            this.close();
+            ctx.close();
         } catch (Exception e) {
             LOG.error("Problem reading file, " + linesRead.get() + " lines read", e);
             throw e;

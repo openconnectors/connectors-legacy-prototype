@@ -6,6 +6,7 @@ import com.streamlio.message.Message;
 import com.streamlio.util.SinkConnectorContext;
 import com.streamlio.util.SinkTaskConfig;
 
+import java.io.IOException;
 import java.util.Collection;
 
 public class CopyContext
@@ -18,7 +19,17 @@ public class CopyContext
 
     @Override
     public void collect(Collection<T> messages) throws Exception{
-        this.sink.publish(messages);
+        this.getSink().publish(messages);
+    }
+
+    @Override
+    public void setup(W config) throws Exception {
+        this.getSink().open(config);
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.getSink().close();
     }
 }
 

@@ -15,32 +15,31 @@ import java.util.Collection;
 public class ETLContext
         <T extends Message,U extends SinkTaskConfig, V extends SinkConnectorContext, W extends Config,
                 X extends Message>
-        extends SourceContextSinkLinked {
+        extends SourceContextSinkLinked<T,U,V,W,X> {
 
-    SinkConnector<U,V,W,X> sink;
-    Mapper<T,X> mapper;
+    private Mapper<T,X> mapper;
 
-    public ETLContext(SinkConnector<U,V,W,X> sink, Mapper<T,X> mapper){
-        this.sink = sink;
+    public ETLContext(SinkConnector<U,V,W,X> sink, Mapper<T,X> mapper) {
+        super(sink);
         this.mapper = mapper;
     }
 
     @Override
-    public void setup(W config) {
+    public void setup(W config) throws Exception {
         mapper.setup(config);
-        sink.open(config);
-
+        this.getSink().open(config);
     }
 
     @Override
-    public void collect(Collection<T> messages) throws Exception{
-        sink.publish(mapper.transform(messages));
+    public void collect(Collection<T> messages) throws Exception {
+        this.getSink().publish(mapper.transform(messages));
+
     }
 
     @Override
     public void close() throws IOException {
         mapper.close();
-        sink.close();
+        this.getSink().close();
     }
 
 }

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.impl.fs;
+package com.streamlio.fs;
 
 
 import com.streamlio.message.Message;

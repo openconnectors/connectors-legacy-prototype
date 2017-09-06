@@ -37,7 +37,7 @@ public class LocalFSSink extends SinkConnector
     public void publish(Collection<LineDataMessage> lines) throws Exception {
         try {
             for(LineDataMessage message : lines){
-                writer.write(message.getData().toString());
+                writer.write(new String(message.getData()));
                 writer.write("\n");
                 linesWritten.incrementAndGet();
             }

@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public abstract class SourceConnector
         <T extends SourceTaskConfig, U extends SourceConnectorContext, V extends Config, W extends Message>
-        extends Connector<T,U,V> implements Task<SourceContext<W>>{
+        extends Connector<T,U,V> implements Task<SourceContext<W,V>>{
 
     public abstract Collection<W> poll() throws Exception;
 

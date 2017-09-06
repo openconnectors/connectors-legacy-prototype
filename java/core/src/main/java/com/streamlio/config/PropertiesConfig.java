@@ -1,18 +1,28 @@
 package com.streamlio.config;
 
-import java.util.HashMap;
+import com.streamlio.localfs.LineSpout;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public class MapConfig implements Config {
+public class PropertiesConfig implements Config {
 
-    final HashMap<String, Object> properties;
+    private static final Logger LOG = LoggerFactory.getLogger(LineSpout.class);
 
-    public MapConfig(){
-        properties = new HashMap<>();
-    }
+    final Properties properties;
 
-    public MapConfig(final HashMap<String, Object> props){
-        properties = props;
+    public PropertiesConfig() throws IOException {
+        this.properties = new Properties();
+        this.properties.load(PropertiesConfig.class.getClassLoader()
+                .getResourceAsStream("connector.properties"));
+        Properties local = new Properties();
+        local.load(PropertiesConfig.class.getClassLoader()
+                    .getResourceAsStream("local.connector.properties"));
+        this.merge(local);
     }
 
     @Override
@@ -107,7 +117,11 @@ public class MapConfig implements Config {
         return (getObject(propertyName) != null) ? getObject(propertyName) : defaultValue;
     }
 
-    private static boolean isNull(String propertyName, HashMap<String, Object> properties) {
+    private void merge(final Properties p){
+        this.properties.putAll(p);
+    }
+
+    private static boolean isNull(String propertyName, Properties properties) {
         if(properties == null || propertyName == null || properties.containsKey(propertyName) == false){
             return true;
         }
@@ -119,6 +133,7 @@ public class MapConfig implements Config {
         if(properties == null){
             return null;
         }
-        return properties.keySet();
+
+        return properties.keySet().stream().map(x -> (String) x).collect(Collectors.toSet());
     }
 }
