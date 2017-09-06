@@ -1,6 +1,6 @@
 #Connectors Framework
 
-This project is to develop the framework and the there underlying implementations for input output to various external storage and data processing systems.
+This project is to develop the framework and the there underlying implementations for input and output to various external storage and data processing systems.
 
 ## Design
 
@@ -12,9 +12,12 @@ Source represents something that provides and input stream and is generally the 
 
 ## Lifecycle
 
-For a Source Connector the process starts with a initialization phase , 
+For a Source Connector the process starts with a initialization phase, the start method is called post setup and is called with a 
+"SourceContext" the context encompasses a collect method which should be called every time the sink is ready with new data. 
+A poll method is also part of the interface or alternative or explicit data requests.
 
 
+For a Sink Connector the process also with a initialization phase, it does not have a live task context , it in it's current form is not suppose to pull data but rather be given data to process via calling the publish data.
 
 
 ## Configuration
@@ -22,10 +25,11 @@ For a Source Connector the process starts with a initialization phase ,
 For various components the Config context is available in most methods with interfaces a key value type lookup the preferred implementation is the PropertiesConfig class , which uses a two phase bootstrap . First loading base properties from "connector.properties" and then overriding and extending the keyset with "local.connector.properties" being looked at from the class path.
 
 
-## Execution Context / Local Runner
+## Execution instance / Local Runner
 
+At the most basic level a pipeline needs to be composed of a source a context handled and a sink , to possible contexts are a copy and a etl context ie : "CopyContext" and "ETLContext"
 
-
+Copy context simply transmits data from a source to sink , where an etl context does the same but adds a mapping phase between the source and sink which is chained link of transformation operations.
 
 
 ## Heron Adapters
