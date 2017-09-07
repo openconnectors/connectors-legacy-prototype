@@ -54,8 +54,14 @@ In dealing with more complex and parallel execution environments and dealing wit
 ## Copy and ETL Context
 
 
+[`CopyContext.java`](core/src/main/java/com/streamlio/context/CopyContext.java)
+
+[`ETLContext.java`](core/src/main/java/com/streamlio/context/ETLContext.java)
+
 
 ## Build Instructions adding new connectors
+
+### Gradle commands
 
 We use gradle for build management
 
@@ -71,6 +77,23 @@ gradle core:sourcesJar // package sources into jar
 gradle core:javadocJar // build java doc jar
 ```
 
+### Adding new connectors
+
+
+
+
+## Examples
+
+Local Runner for file copy
+
+[`LocalFSCopyRunner.java`](examples/src/main/java/examples/LocalFSCopyRunner.java)
+
+Source and Sink in a java process linked in Copy Context.
+
+
+[`FileCopyTopology.java`](examples/src/main/java/examples/FileCopyTopology.java)
+
+Heron Topology wrapping Heron spout and bolt into a simple topology
 
 
 
