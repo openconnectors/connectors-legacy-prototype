@@ -6,7 +6,7 @@ import com.twitter.heron.api.tuple.Tuple;
 
 import java.io.Serializable;
 
-public interface TupleToMessageMapper extends Serializable {
+public interface TupleToMessageMapper<T extends Message> extends Serializable {
 
     /**
      * Convert tuple to {@link com.streamlio.message.Message}.
@@ -14,7 +14,7 @@ public interface TupleToMessageMapper extends Serializable {
      * @param tuple
      * @return
      */
-    Message toMessage(Tuple tuple);
+    T toMessage(Tuple tuple);
 
     /**
      * Declare the output schema for the bolt.

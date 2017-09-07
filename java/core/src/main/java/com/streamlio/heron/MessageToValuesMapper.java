@@ -6,7 +6,7 @@ import com.twitter.heron.api.tuple.Values;
 
 import java.io.Serializable;
 
-public interface MessageToValuesMapper extends Serializable {
+public interface MessageToValuesMapper<T extends Message> extends Serializable {
 
     /**
      * Convert {@link com.streamlio.message.Message} to tuple values.
@@ -14,7 +14,7 @@ public interface MessageToValuesMapper extends Serializable {
      * @param message
      * @return
      */
-    Values toValues(Message message);
+    Values toValues(T message);
 
     /**
      * Declare the output schema for the spout.

@@ -23,6 +23,13 @@ public abstract class SinkBoltAdapter<T extends SinkConnector, U extends TupleTo
     private T sink;
     private U tupleMapper;
 
+
+    public SinkBoltAdapter(T sink, U tupleMapper){
+        this.sink = sink;
+        this.tupleMapper = tupleMapper;
+    }
+
+
     @Override
     public Object getValueAndReset() {
         return null;

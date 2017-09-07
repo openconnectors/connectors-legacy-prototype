@@ -1,4 +1,4 @@
-package examples.legacy;
+package examples.util;
 
 import backtype.storm.utils.ConfigUtils;
 import com.twitter.heron.api.HeronTopology;
@@ -77,7 +77,7 @@ public class LocalClusterHeron {
 
     @SuppressWarnings("rawtypes")
     public Map getState() {
-        throw new RuntimeException("Heron does not support LocalCluster yet...");
+        throw new RuntimeException("Heron does not support LocalCluster state yet...");
     }
 
     private void resetFields() {

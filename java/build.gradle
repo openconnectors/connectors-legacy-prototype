@@ -106,7 +106,7 @@ project(':kafka') {
    }
 }
 
-//Kafka
+//Examples
 project(':examples') {
    dependencies {
       compile project(':core')

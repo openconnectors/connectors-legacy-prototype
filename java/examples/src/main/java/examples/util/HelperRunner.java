@@ -1,6 +1,5 @@
 package examples.util;
 
-import examples.legacy.LocalClusterHeron;
 import com.twitter.heron.api.Config;
 import com.twitter.heron.api.HeronSubmitter;
 import com.twitter.heron.api.HeronTopology;

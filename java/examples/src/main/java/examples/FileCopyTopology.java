@@ -13,7 +13,7 @@ public class FileCopyTopology {
 
     public static void main(String[] args) throws Exception {
 
-        args = new String[]{"FileCopy", "Simulator" };
+        args = new String[]{"FileCopy", "Simulator"};
 
         TopologyBuilder builder = new TopologyBuilder();
 

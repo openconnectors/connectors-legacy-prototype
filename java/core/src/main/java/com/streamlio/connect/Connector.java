@@ -23,9 +23,10 @@ import com.streamlio.util.TaskConfig;
 import com.streamlio.util.Versionable;
 
 import java.io.Closeable;
+import java.io.Serializable;
 
 public abstract class Connector<T extends TaskConfig, U extends ConnectorContext, V extends Config>
-        implements Versionable, Closeable{
+        implements Versionable, Closeable, Serializable {
 
     private T taskConfig;
     private U context;

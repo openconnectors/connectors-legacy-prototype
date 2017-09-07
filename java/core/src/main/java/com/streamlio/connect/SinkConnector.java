@@ -5,6 +5,7 @@ import com.streamlio.message.Message;
 import com.streamlio.util.SinkTaskConfig;
 import com.streamlio.util.SinkConnectorContext;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 public abstract class SinkConnector

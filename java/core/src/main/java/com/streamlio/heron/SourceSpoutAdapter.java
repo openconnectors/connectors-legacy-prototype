@@ -25,6 +25,13 @@ public abstract class SourceSpoutAdapter<T extends SourceConnector, U extends Me
     private U messageMapper;
     private SpoutSourceContext sourceContext;
 
+
+    public SourceSpoutAdapter(T source, U messageMapper){
+        this.source = source;
+        this.messageMapper = messageMapper;
+    }
+
+
     @Override
     public Object getValueAndReset() {
         return null;
