@@ -18,12 +18,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class SourceSpoutAdapter<T extends SourceConnector, U extends MessageToValuesMapper>
+public abstract class SourceSpoutAdapter<T extends SourceConnector, U extends MessageToValuesMapper, V extends Message>
         extends BaseRichSpout implements IMetric {
 
     private T source;
     private U messageMapper;
-    private SpoutSourceContext sourceContext;
+    private SpoutSourceContext<V> sourceContext;
 
 
     public SourceSpoutAdapter(T source, U messageMapper){

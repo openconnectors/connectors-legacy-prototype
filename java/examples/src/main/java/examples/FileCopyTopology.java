@@ -1,5 +1,6 @@
 package examples;
 
+import com.streamlio.config.PropertiesConfig;
 import examples.util.HelperRunner;
 import com.streamlio.localfs.LineBolt;
 import com.streamlio.localfs.LineSpout;
@@ -17,14 +18,23 @@ public class FileCopyTopology {
 
         TopologyBuilder builder = new TopologyBuilder();
 
-        builder.setSpout("spout", new LineSpout());
+        builder.setSpout("spout1", new LineSpout());
 
-        builder.setBolt("sink", new LineBolt());
+        builder.setBolt("sink1", new LineBolt()).globalGrouping("spout1");
+
+        PropertiesConfig config = new PropertiesConfig();
 
         Config conf = new Config();
 
-        com.twitter.heron.api.Config.setComponentRam(conf, "spout", ByteAmount.fromMegabytes(256));
-        com.twitter.heron.api.Config.setComponentRam(conf, "sink", ByteAmount.fromMegabytes(256));
+        for(String s : config.getPropertyKeys()){
+            conf.put(s, config.getObject(s));
+        }
+
+        com.twitter.heron.api.Config.setComponentRam(conf, "spout1", ByteAmount.fromMegabytes(256));
+        com.twitter.heron.api.Config.setComponentRam(conf, "sink1", ByteAmount.fromMegabytes(256));
+
+
+        System.out.println(builder.createTopology().toString());
 
         //submit the topology
         HelperRunner.runTopology(args, builder.createTopology(), conf);

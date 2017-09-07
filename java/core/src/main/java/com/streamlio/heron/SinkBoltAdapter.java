@@ -10,6 +10,7 @@ import com.twitter.heron.api.spout.BaseRichSpout;
 import com.twitter.heron.api.spout.SpoutOutputCollector;
 import com.twitter.heron.api.topology.OutputFieldsDeclarer;
 import com.twitter.heron.api.topology.TopologyContext;
+import com.twitter.heron.api.tuple.Fields;
 import com.twitter.heron.api.tuple.Tuple;
 import com.twitter.heron.api.tuple.Values;
 
@@ -29,7 +30,6 @@ public abstract class SinkBoltAdapter<T extends SinkConnector, U extends TupleTo
         this.tupleMapper = tupleMapper;
     }
 
-
     @Override
     public Object getValueAndReset() {
         return null;
@@ -38,6 +38,7 @@ public abstract class SinkBoltAdapter<T extends SinkConnector, U extends TupleTo
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
+        declarer.declare(new Fields("id", "line"));
 
     }
 

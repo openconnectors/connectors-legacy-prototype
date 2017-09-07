@@ -14,7 +14,7 @@ public class LineTupleMapper implements TupleToMessageMapper<LineDataMessage> {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("id","line"));
+        declarer.declare(new Fields("id", "line"));
 
     }
 }

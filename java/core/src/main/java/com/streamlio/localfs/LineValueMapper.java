@@ -2,6 +2,7 @@ package com.streamlio.localfs;
 
 import com.streamlio.heron.MessageToValuesMapper;
 import com.twitter.heron.api.topology.OutputFieldsDeclarer;
+import com.twitter.heron.api.tuple.Fields;
 import com.twitter.heron.api.tuple.Values;
 
 public class LineValueMapper implements MessageToValuesMapper<LineDataMessage>{
@@ -13,6 +14,7 @@ public class LineValueMapper implements MessageToValuesMapper<LineDataMessage>{
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
+        declarer.declare(new Fields("id", "line"));
 
     }
 }
