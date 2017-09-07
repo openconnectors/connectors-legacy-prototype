@@ -79,7 +79,12 @@ gradle core:javadocJar // build java doc jar
 
 ### Adding new connectors
 
+Create a new folder
 
+update settings.gradle to include the new gradle module
+update build.gradle to manage dependencies.
+
+jar construction template is already provided via the folder name context.
 
 
 ## Examples
@@ -90,11 +95,19 @@ Local Runner for file copy
 
 Source and Sink in a java process linked in Copy Context.
 
-
 [`FileCopyTopology.java`](examples/src/main/java/examples/FileCopyTopology.java)
 
 Heron Topology wrapping Heron spout and bolt into a simple topology
 
+[`LocalStreamCopyRunner.java`](examples/src/main/java/examples/LocalStreamCopyRunner.java)
+
+Local Echo std in to std in a a copy context
+
+```
+java -cp examples/build/libs/examples-uber.jar "examples.LocalStreamCopyRunner"
+java -cp examples/build/libs/examples-uber.jar "examples.LocalFSCopyRunner"
+java -cp examples/build/libs/examples-uber.jar "examples.FileCopyTopology"
+```
 
 
 ## List of connectors Status
