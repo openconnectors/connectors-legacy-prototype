@@ -1,10 +1,9 @@
-package com.streamlio.util;
+package examples.util;
 
+import examples.legacy.LocalClusterHeron;
 import com.twitter.heron.api.Config;
 import com.twitter.heron.api.HeronSubmitter;
 import com.twitter.heron.api.HeronTopology;
-import com.twitter.heron.api.exception.AlreadyAliveException;
-import com.twitter.heron.api.exception.InvalidTopologyException;
 
 public class HelperRunner {
 
@@ -49,7 +48,7 @@ public class HelperRunner {
     }
 
     private static void runTopologyRemotely(HeronTopology topology, String topologyName, Config conf)
-            throws InterruptedException, AlreadyAliveException, InvalidTopologyException {
+            throws Exception {
         HeronSubmitter.submitTopology(topologyName, conf, topology);
     }
 
@@ -57,7 +56,12 @@ public class HelperRunner {
                                            String topologyName,
                                            Config conf,
                                            int runtimeInSeconds)
-            throws InterruptedException, AlreadyAliveException, InvalidTopologyException {
+            throws Exception {
+        LocalClusterHeron cluster = new LocalClusterHeron();
+        cluster.submitTopology(topologyName, conf, topology);
+        Thread.sleep((long) runtimeInSeconds * MILLIS_IN_SEC);
+        cluster.killTopology(topologyName);
+        cluster.shutdown();
 
     }
 }

@@ -16,12 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.runtime;
+package org.streamlio.connectors.examples.connect.runtime;
 
 import com.streamlio.common.ConnectorExecutionException;
 import com.streamlio.common.util.PropertiesValidator;
 import com.streamlio.connect.SinkConnector;
-import com.streamlio.connectors.pulsar.connect.config.PulsarConnectorConfiguration;
+import org.streamlio.connectors.examples.connect.config.PulsarConnectorConfiguration;
 
 import java.util.Properties;
 

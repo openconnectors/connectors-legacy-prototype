@@ -1,9 +1,11 @@
-package com.streamlio.localfs;
+package examples;
 
 import com.streamlio.config.PropertiesConfig;
 import com.streamlio.connect.SourceConnector;
 import com.streamlio.connect.SourceContextSinkLinked;
 import com.streamlio.context.CopyContext;
+import com.streamlio.localfs.LocalFSSink;
+import com.streamlio.localfs.LocalFSSource;
 import com.streamlio.runner.LinkedBasicRunner;
 
 public class LocalFSCopyRunner extends LinkedBasicRunner {

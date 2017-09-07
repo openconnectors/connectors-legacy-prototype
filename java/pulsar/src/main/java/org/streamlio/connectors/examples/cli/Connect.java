@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.cli;
+package org.streamlio.connectors.examples.cli;
 
 import com.streamlio.common.ConnectorExecutionException;
-import com.streamlio.connectors.pulsar.connect.runtime.PulsarConnectorRunner;
+import org.streamlio.connectors.examples.connect.runtime.PulsarConnectorRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

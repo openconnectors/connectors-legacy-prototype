@@ -1,6 +1,5 @@
 package com.streamlio.config;
 
-import com.streamlio.localfs.LineSpout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class PropertiesConfig implements Config {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LineSpout.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PropertiesConfig.class);
 
     final Properties properties;
 

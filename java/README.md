@@ -51,10 +51,28 @@ In dealing with more complex and parallel execution environments and dealing wit
 
 
 
-
-
-
 ## Copy and ETL Context
+
+
+
+## Build Instructions adding new connectors
+
+We use gradle for build management
+
+build targets are relative to subprojects.
+
+```
+gradle core:jar // build packaged jar
+gradle core:createPom // build maven compatible pom.xml
+gradle core:compileJava // compileSources
+gradle core:compileTestJava // compileTest
+gradle core:fatJar // construct uber Jar
+gradle core:sourcesJar // package sources into jar
+gradle core:javadocJar // build java doc jar
+```
+
+
+
 
 ## List of connectors Status
 

@@ -14,8 +14,8 @@ package pulsar;
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import org.streamlio.connectors.examples.heron.MessageToValuesMapper;
-import org.streamlio.connectors.examples.heron.PulsarSpout;
+import com.streamlio.connectors.pulsar.heron.MessageToValuesMapper;
+import com.streamlio.connectors.pulsar.heron.PulsarSpout;
 import com.twitter.heron.api.spout.SpoutOutputCollector;
 import com.twitter.heron.api.topology.TopologyContext;
 import com.twitter.heron.api.tuple.Values;

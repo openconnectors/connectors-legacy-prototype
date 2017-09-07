@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.streamlio.connectors.pulsar.connect.util;
+package org.streamlio.connectors.examples.connect.util;
 
-import com.streamlio.connectors.pulsar.connect.config.PulsarConnectorConfiguration;
+import org.streamlio.connectors.examples.connect.config.PulsarConnectorConfiguration;
 import org.apache.pulsar.client.api.ClientConfiguration;
 import org.apache.pulsar.client.api.PulsarClient;
 import org.apache.pulsar.client.api.PulsarClientException;

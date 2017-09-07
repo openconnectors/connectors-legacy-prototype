@@ -105,3 +105,10 @@ project(':kafka') {
       compile project(':core')
    }
 }
+
+//Kafka
+project(':examples') {
+   dependencies {
+      compile project(':core')
+   }
+}
