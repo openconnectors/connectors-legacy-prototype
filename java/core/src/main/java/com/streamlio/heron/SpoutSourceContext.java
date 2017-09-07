@@ -6,6 +6,7 @@ import com.streamlio.message.Message;
 import com.twitter.heron.api.spout.SpoutOutputCollector;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collection;
 
 public class SpoutSourceContext<T extends Message> implements SourceContext<T,Config> {

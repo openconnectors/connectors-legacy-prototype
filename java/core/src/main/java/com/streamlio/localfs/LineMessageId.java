@@ -3,6 +3,8 @@ package com.streamlio.localfs;
 import com.google.common.primitives.Longs;
 import com.streamlio.message.MessageId;
 
+import java.io.Serializable;
+
 public class LineMessageId implements MessageId {
 
     private final long lineNumber;

@@ -1,13 +1,12 @@
-package com.streamlio.stream;
+package examples;
 
 import com.streamlio.config.MapConfig;
-import com.streamlio.connect.SinkConnector;
 import com.streamlio.connect.SourceConnector;
-import com.streamlio.connect.SourceContext;
 import com.streamlio.connect.SourceContextSinkLinked;
 import com.streamlio.context.CopyContext;
-import com.streamlio.runner.BasicRunner;
 import com.streamlio.runner.LinkedBasicRunner;
+import com.streamlio.stream.PrintStreamSink;
+import com.streamlio.stream.StdInputStreamSource;
 
 import java.util.HashMap;
 
