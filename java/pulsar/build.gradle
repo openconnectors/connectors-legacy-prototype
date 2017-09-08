@@ -1,6 +1,3 @@
 dependencies {
     compile 'org.apache.pulsar:pulsar-client:1.19.0-incubating'
 }
-
-
-
