@@ -1,7 +1,7 @@
 package examples.legacy;
 
-import com.streamlio.config.MapConfig;
-import com.streamlio.connect.SourceConnector;
+import org.streamlio.config.MapConfig;
+import org.streamlio.connect.SourceConnector;
 import org.apache.storm.metric.api.IMetric;
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;

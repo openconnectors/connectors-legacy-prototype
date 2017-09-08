@@ -1,8 +1,8 @@
 package examples.legacy;
 
-import com.streamlio.config.Config;
-import com.streamlio.connect.SourceContext;
-import com.streamlio.message.Message;
+import org.streamlio.config.Config;
+import org.streamlio.connect.SourceContext;
+import org.streamlio.message.Message;
 import org.apache.storm.spout.SpoutOutputCollector;
 
 import java.io.IOException;

@@ -1,8 +1,8 @@
 package examples.legacy;
 
-import com.streamlio.config.MapConfig;
-import com.streamlio.connect.SinkConnector;
-import com.streamlio.message.Message;
+import org.streamlio.config.MapConfig;
+import org.streamlio.connect.SinkConnector;
+import org.streamlio.message.Message;
 import org.apache.storm.metric.api.IMetric;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;

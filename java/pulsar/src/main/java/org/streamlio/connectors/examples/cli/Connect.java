@@ -18,7 +18,7 @@
  */
 package org.streamlio.connectors.examples.cli;
 
-import com.streamlio.common.ConnectorExecutionException;
+import org.streamlio.common.ConnectorExecutionException;
 import org.streamlio.connectors.examples.connect.runtime.PulsarConnectorRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

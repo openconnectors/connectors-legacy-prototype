@@ -1,6 +1,6 @@
 package examples.legacy;
 
-import com.streamlio.message.Message;
+import org.streamlio.message.Message;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.tuple.Values;
 

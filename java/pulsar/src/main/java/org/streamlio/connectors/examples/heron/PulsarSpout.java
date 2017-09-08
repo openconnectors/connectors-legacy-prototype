@@ -13,7 +13,7 @@
 //  limitations under the License.
 package org.streamlio.connectors.examples.heron;
 
-import com.streamlio.common.util.Utils;
+import org.streamlio.common.util.Utils;
 import com.twitter.heron.api.metric.IMetric;
 import com.twitter.heron.api.spout.BaseRichSpout;
 import com.twitter.heron.api.spout.SpoutOutputCollector;

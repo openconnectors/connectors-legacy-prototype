@@ -1,12 +1,12 @@
 package examples;
 
-import com.streamlio.config.PropertiesConfig;
-import com.streamlio.localfs.LineBolt;
-import com.streamlio.localfs.LineSpout;
 import com.twitter.heron.api.Config;
 import com.twitter.heron.api.topology.TopologyBuilder;
 import com.twitter.heron.common.basics.ByteAmount;
 import examples.util.HelperRunner;
+import org.streamlio.config.ConfigProvider;
+import org.streamlio.localfs.LineBolt;
+import org.streamlio.localfs.LineSpout;
 
 public class FileCopyTopology {
 
@@ -22,7 +22,7 @@ public class FileCopyTopology {
 
         builder.setBolt("sink", new LineBolt()).globalGrouping("spout");
 
-        PropertiesConfig config = new PropertiesConfig();
+        org.streamlio.config.Config config = new ConfigProvider();
 
         Config conf = new Config();
 

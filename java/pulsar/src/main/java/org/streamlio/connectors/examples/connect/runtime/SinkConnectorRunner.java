@@ -18,13 +18,13 @@
  */
 package org.streamlio.connectors.examples.connect.runtime;
 
-import com.streamlio.common.ConnectorExecutionException;
-import com.streamlio.common.io.FileSystems;
-import com.streamlio.common.util.Bytes;
-import com.streamlio.common.util.ConfigUtils;
-import com.streamlio.common.util.InstanceBuilder;
-import com.streamlio.common.util.PropertiesValidator;
-import com.streamlio.connect.SinkConnector;
+import org.streamlio.common.ConnectorExecutionException;
+import org.streamlio.common.io.FileSystems;
+import org.streamlio.common.util.Bytes;
+import org.streamlio.common.util.ConfigUtils;
+import org.streamlio.common.util.InstanceBuilder;
+import org.streamlio.common.util.PropertiesValidator;
+import org.streamlio.connect.SinkConnector;
 import org.streamlio.connectors.examples.connect.config.PulsarConnectorConfiguration;
 import com.streamlio.connectors.pulsar.connect.util.*;
 import org.apache.pulsar.client.api.*;

@@ -1,14 +1,13 @@
 package examples;
 
-import com.streamlio.config.MapConfig;
-import com.streamlio.connect.SourceConnector;
-import com.streamlio.connect.SourceContextSinkLinked;
-import com.streamlio.context.CopyContext;
-import com.streamlio.runner.LinkedBasicRunner;
-import com.streamlio.stream.PrintStreamSink;
-import com.streamlio.stream.StdInputStreamSource;
-
-import java.util.HashMap;
+import org.streamlio.config.Config;
+import org.streamlio.config.ConfigProvider;
+import org.streamlio.connect.SourceConnector;
+import org.streamlio.connect.SourceContextSinkLinked;
+import org.streamlio.context.CopyContext;
+import org.streamlio.runner.LinkedBasicRunner;
+import org.streamlio.stream.PrintStreamSink;
+import org.streamlio.stream.StdInputStreamSource;
 
 public class LocalStreamCopyRunner extends LinkedBasicRunner {
 
@@ -25,8 +24,7 @@ public class LocalStreamCopyRunner extends LinkedBasicRunner {
                 new CopyContext(sink)
         );
 
-        HashMap<String, Object> props = new HashMap<>();
-        MapConfig config = new MapConfig(props);
+        Config config = new ConfigProvider();
         runner.setup(config);
         runner.run();
     }

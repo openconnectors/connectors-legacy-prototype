@@ -1,12 +1,13 @@
 package examples;
 
-import com.streamlio.config.PropertiesConfig;
-import com.streamlio.connect.SourceConnector;
-import com.streamlio.connect.SourceContextSinkLinked;
-import com.streamlio.context.CopyContext;
-import com.streamlio.localfs.LocalFSSink;
-import com.streamlio.localfs.LocalFSSource;
-import com.streamlio.runner.LinkedBasicRunner;
+import org.streamlio.config.Config;
+import org.streamlio.config.ConfigProvider;
+import org.streamlio.connect.SourceConnector;
+import org.streamlio.connect.SourceContextSinkLinked;
+import org.streamlio.context.CopyContext;
+import org.streamlio.localfs.LocalFSSink;
+import org.streamlio.localfs.LocalFSSource;
+import org.streamlio.runner.LinkedBasicRunner;
 
 public class LocalFSCopyRunner extends LinkedBasicRunner {
 
@@ -23,7 +24,7 @@ public class LocalFSCopyRunner extends LinkedBasicRunner {
                 new CopyContext(sink)
         );
 
-        PropertiesConfig config = new PropertiesConfig();
+        Config config = new ConfigProvider();
         runner.setup(config);
         runner.run();
     }

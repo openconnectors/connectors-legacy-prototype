@@ -18,9 +18,9 @@
  */
 package org.streamlio.connectors.examples.connect.runtime;
 
-import com.streamlio.common.ConnectorExecutionException;
-import com.streamlio.common.util.PropertiesValidator;
-import com.streamlio.connect.SinkConnector;
+import org.streamlio.common.ConnectorExecutionException;
+import org.streamlio.common.util.PropertiesValidator;
+import org.streamlio.connect.SinkConnector;
 import org.streamlio.connectors.examples.connect.config.PulsarConnectorConfiguration;
 
 import java.util.Properties;

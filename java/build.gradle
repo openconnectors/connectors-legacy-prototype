@@ -7,83 +7,105 @@ allprojects {
 
 subprojects {
 
-	apply plugin: "java"
+	apply plugin: 'java'
+	apply plugin: 'maven-publish'
 
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
 
- 	repositories {
-        jcenter()
-  	}
+	repositories {
+		jcenter()
+	}
 
-  	test {
-        useTestNG()
+	test {
+		useTestNG()
 	}
 
 	dependencies {
 		compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 		compile group: 'com.twitter.heron', name: 'heron-api', version: '0.15.2'
-        compile group: 'com.google.guava', name: 'guava', version: '23.0'
-        compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.0'
-        compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.0'
-        compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.9.0'
+		compile group: 'com.google.guava', name: 'guava', version: '23.0'
+		compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.0'
+		compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.0'
+		compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.9.0'
+        compile group: 'com.typesafe', name: 'config', version: '1.3.1'
 
-    testCompile 'org.testng:testng:6.11'
-        testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
- 	}
+		testCompile 'org.testng:testng:6.11'
+		testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+	}
 
-  task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-  }
+	task sourcesJar(type: Jar, dependsOn: classes) {
+		classifier = 'sources'
+		from sourceSets.main.allSource
+	}
 
-  task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-  }
+	task javadocJar(type: Jar, dependsOn: javadoc) {
+		classifier = 'javadoc'
+		from javadoc.destinationDir
+	}
 
-  artifacts {
-    archives sourcesJar
-    archives javadocJar
-  }
+	artifacts {
+		archives sourcesJar
+		archives javadocJar
+	}
 
-  task fatJar(type: Jar) {
-      baseName = project.name + '-uber'
-      from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-      with jar
-  }
+	task fatJar(type: Jar) {
+		baseName = project.name + '-uber'
+		from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+		with jar
+	}
 
-  task createPom {
-    apply plugin: 'maven'
-    description "Generates pom.xml"
-    pom {
-        project {
-            groupId 'org.streamlio.connectors'
-            artifactId 'connector' + '-' + project.name
-            version '0.0.1-SNAPSHOT'
-            packaging 'jar'
-        }
-    }.withXml {
-        def dependenciesNode = asNode().appendNode('dependencies')
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+				groupId 'org.streamlio.connectors'
+				artifactId 'connector' + '-' + project.name
+				version '0.0.1-SNAPSHOT'
 
-        configurations.compile.allDependencies.each { dependency ->
-            def dependencyNode = dependenciesNode.appendNode('dependency')
-            dependencyNode.appendNode('groupId', dependency.group)
-            dependencyNode.appendNode('artifactId', dependency.name)
-            dependencyNode.appendNode('version', dependency.version)
+		  		from components.java
 
-            // for exclusions
-            if (dependency.excludeRules.size() > 0) {
-                def exclusions = dependencyNode.appendNode('exclusions')
-                dependency.excludeRules.each { ExcludeRule ex ->
-                    def exclusion = exclusions.appendNode('exclusion')
-                    exclusion.appendNode('groupId', ex.group)
-                    exclusion.appendNode('artifactId', ex.module)
-                }
-            }
-        }
-    }.writeTo("$buildDir/pom.xml")
-  }
+		  		artifact sourcesJar {
+					classifier "sources"
+		  		}
+
+				artifact javadocJar {
+					classifier "javadoc"
+		  		}
+			}
+	 	}
+	}
+
+	task createPom {
+		apply plugin: 'maven'
+		description "Generates pom.xml"
+		pom {
+			project {
+				groupId 'org.streamlio.connectors'
+				artifactId 'connector' + '-' + project.name
+				version '0.0.1-SNAPSHOT'
+				packaging 'jar'
+			}
+		}.withXml {
+			def dependenciesNode = asNode().appendNode('dependencies')
+
+			configurations.compile.allDependencies.each { dependency ->
+				def dependencyNode = dependenciesNode.appendNode('dependency')
+				dependencyNode.appendNode('groupId', dependency.group)
+				dependencyNode.appendNode('artifactId', dependency.name)
+				dependencyNode.appendNode('version', dependency.version)
+
+				// for exclusions
+				if (dependency.excludeRules.size() > 0) {
+					def exclusions = dependencyNode.appendNode('exclusions')
+					dependency.excludeRules.each { ExcludeRule ex ->
+						def exclusion = exclusions.appendNode('exclusion')
+						exclusion.appendNode('groupId', ex.group)
+						exclusion.appendNode('artifactId', ex.module)
+					}
+				}
+			}
+		}.writeTo("$buildDir/pom.xml")
+	}
 
 }
 
@@ -94,21 +116,21 @@ project(':core') {
 
 //Pulsar
 project(':pulsar') {
-   dependencies {
-      compile project(':core')
-   }
+	dependencies {
+		compile project(':core')
+	}
 }
 
 //Kafka
 project(':kafka') {
-   dependencies {
-      compile project(':core')
-   }
+	dependencies {
+		compile project(':core')
+	}
 }
 
 //Examples
 project(':examples') {
-   dependencies {
-      compile project(':core')
-   }
+	dependencies {
+		compile project(':core')
+	}
 }
