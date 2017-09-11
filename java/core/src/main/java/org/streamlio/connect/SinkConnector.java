@@ -8,10 +8,10 @@ import org.streamlio.util.SinkConnectorContext;
 import java.util.Collection;
 
 public abstract class SinkConnector
-        <T extends SinkTaskConfig, U extends SinkConnectorContext, V extends Config, W extends Message>
-        extends Connector<T, U, V> {
+        <T extends SinkConnectorContext, U extends Message>
+        extends Connector<T> {
 
-    public abstract void publish(final Collection<W> messages) throws Exception;
+    public abstract void publish(final Collection<U> messages) throws Exception;
 
     public abstract void flush() throws Exception;
 

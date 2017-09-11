@@ -6,16 +6,16 @@ import org.streamlio.util.SinkConnectorContext;
 import org.streamlio.util.SinkTaskConfig;
 
 public abstract class SourceContextSinkLinked
-        <T extends Message, U extends SinkTaskConfig, V extends SinkConnectorContext, W extends Config, X extends Message>
-        implements SourceContext<T,W> {
+        <T extends SinkConnectorContext, U extends Message, V extends Message>
+        implements SourceContext<V> {
 
-    public SinkConnector<U, V, W, X> getSink() {
+    public SinkConnector<T,U> getSink() {
         return sink;
     }
 
-    private SinkConnector<U,V,W,X> sink;
+    private SinkConnector<T,U> sink;
 
-    public SourceContextSinkLinked(SinkConnector<U,V,W,X> sink){
+    public SourceContextSinkLinked(SinkConnector<T,U> sink){
         this.sink = sink;
     }
 

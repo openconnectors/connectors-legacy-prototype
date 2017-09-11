@@ -7,8 +7,8 @@ import java.io.Closeable;
 import java.io.Serializable;
 import java.util.Collection;
 
-public interface SourceContext<W extends Message, X extends Config> extends Closeable, Serializable {
+public interface SourceContext<W extends Message> extends Closeable, Serializable {
 
-    void setup(X config) throws Exception;
+    void setup(Config config) throws Exception;
     void collect(Collection<W> messages) throws Exception;
 }

@@ -25,40 +25,20 @@ import org.streamlio.util.Versionable;
 import java.io.Closeable;
 import java.io.Serializable;
 
-public abstract class Connector<T extends TaskConfig, U extends ConnectorContext, V extends Config>
+public abstract class Connector<U extends ConnectorContext>
         implements Versionable, Closeable, Serializable {
 
-    private T taskConfig;
     private U context;
-    private int taskParallelism;
 
     public void initialize(U ctx){
         this.context = ctx;
-        this.taskConfig = null;
-        this.taskParallelism = 1;
     }
 
-    public void initialize(U ctx, T taskConfig){
-        this.context = ctx;
-        this.taskConfig = taskConfig;
-        this.taskParallelism = 1;
-    }
+    public abstract void open(Config config) throws Exception;
 
-    public void initialize(U ctx, T taskConfig, int taskParallelism){
-        this.context = ctx;
-        this.taskConfig = taskConfig;
-        this.taskParallelism = taskParallelism;
-    }
-
-    public abstract void open(V config) throws Exception;
-
-    public void reset(V config) throws Exception{
+    public void reset(Config config) throws Exception{
         close();
         open(config);
-    }
-
-    public T getTaskConfig() {
-        return taskConfig;
     }
 
     public U getContext() {

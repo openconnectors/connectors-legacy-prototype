@@ -22,32 +22,22 @@ public class ConfigProvider implements Config {
 
     @Override
     public Integer getInt(String propertyName) {
-        return null;
+        return config.getInt(propertyName);
     }
 
     @Override
     public Long getLong(String propertyName) {
-        return null;
+        return config.getLong(propertyName);
     }
 
     @Override
     public Double getDouble(String propertyName) {
-        return null;
+        return config.getDouble(propertyName);
     }
 
     @Override
     public Boolean getBoolean(String propertyName) {
-        return null;
-    }
-
-    @Override
-    public Character getCharacter(String propertyName) {
-        return null;
-    }
-
-    @Override
-    public Byte getByte(String propertyName) {
-        return null;
+        return config.getBoolean(propertyName);
     }
 
     @Override
@@ -62,37 +52,28 @@ public class ConfigProvider implements Config {
 
     @Override
     public Integer getInt(String propertyName, Integer defaultValue) {
-        return null;
+        return config.hasPath(propertyName) ? this.getInt(propertyName) : defaultValue;
     }
 
     @Override
     public Long getLong(String propertyName, Long defaultValue) {
-        return null;
+        return config.hasPath(propertyName) ? this.getLong(propertyName) : defaultValue;
     }
 
     @Override
     public Double getDouble(String propertyName, Double defaultValue) {
-        return null;
+        return config.hasPath(propertyName) ? this.getDouble(propertyName) : defaultValue;
     }
 
     @Override
     public Boolean getBoolean(String propertyName, Boolean defaultValue) {
-        return null;
+        return config.hasPath(propertyName) ? this.getBoolean(propertyName) : defaultValue;
     }
 
-    @Override
-    public Character getCharacter(String propertyName, Character defaultValue) {
-        return null;
-    }
-
-    @Override
-    public Byte getByte(String propertyName, Byte defaultValue) {
-        return null;
-    }
 
     @Override
     public Object getObject(String propertyName, Object defaultValue) {
-        return null;
+        return config.hasPath(propertyName) ? this.getObject(propertyName) : defaultValue;
     }
 
     @Override

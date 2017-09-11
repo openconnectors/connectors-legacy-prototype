@@ -8,9 +8,9 @@ import org.streamlio.util.SourceTaskConfig;
 import java.util.Collection;
 
 public abstract class SourceConnector
-        <T extends SourceTaskConfig, U extends SourceConnectorContext, V extends Config, W extends Message>
-        extends Connector<T,U,V> implements Task<SourceContext<W,V>>{
+        <T extends SourceConnectorContext, U extends Message>
+        extends Connector<T> implements Task<SourceContext<U>>{
 
-    public abstract Collection<W> poll() throws Exception;
+    public abstract Collection<U> poll() throws Exception;
 
 }

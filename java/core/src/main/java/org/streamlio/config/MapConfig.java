@@ -46,23 +46,6 @@ public class MapConfig implements Config {
     }
 
     @Override
-    public Character getCharacter(String propertyName) {
-        if (isNull(propertyName, properties)) return null;
-        final String temp = properties.get(propertyName).toString();
-        if(temp != null && temp.length() > 0){
-            return properties.get(propertyName).toString().charAt(0);
-        }
-        else{
-            return null;
-        }
-    }
-
-    @Override
-    public Byte getByte(String propertyName) {
-        return Byte.parseByte(properties.get(propertyName).toString());
-    }
-
-    @Override
     public Object getObject(String propertyName) {
         return properties.get(propertyName).toString();
     }
@@ -90,16 +73,6 @@ public class MapConfig implements Config {
     @Override
     public Boolean getBoolean(String propertyName, Boolean defaultValue) {
         return (getBoolean(propertyName) != null) ? getBoolean(propertyName) : defaultValue;
-    }
-
-    @Override
-    public Character getCharacter(String propertyName, Character defaultValue) {
-        return (getCharacter(propertyName) != null) ? getCharacter(propertyName) : defaultValue;
-    }
-
-    @Override
-    public Byte getByte(String propertyName, Byte defaultValue) {
-        return (getByte(propertyName) != null) ? getByte(propertyName) : defaultValue;
     }
 
     @Override

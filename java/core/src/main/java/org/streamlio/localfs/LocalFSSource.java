@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class LocalFSSource extends SourceConnector<SourceTaskConfig,SourceConnectorContext,Config,LineDataMessage> {
+public class LocalFSSource extends SourceConnector<SourceConnectorContext,LineDataMessage> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalFSSource.class);
 
@@ -42,7 +42,7 @@ public class LocalFSSource extends SourceConnector<SourceTaskConfig,SourceConnec
 
 
     @Override
-    public void start(SourceContext<LineDataMessage,Config> ctx) throws Exception {
+    public void start(SourceContext<LineDataMessage> ctx) throws Exception {
         try {
             String line;
             while ((line = reader.readLine()) != null) {

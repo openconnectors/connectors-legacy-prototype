@@ -8,7 +8,7 @@ import com.twitter.heron.api.spout.SpoutOutputCollector;
 import java.io.IOException;
 import java.util.Collection;
 
-public class SpoutSourceContext<T extends Message> implements SourceContext<T,Config> {
+public class SpoutSourceContext<T extends Message> implements SourceContext<T> {
 
     private SpoutOutputCollector collector;
     private MessageToValuesMapper<T> messageMapper;

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class LocalFSSink extends SinkConnector<SinkTaskConfig,SinkConnectorContext,Config,LineDataMessage> {
+public class LocalFSSink extends SinkConnector<SinkConnectorContext,LineDataMessage> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalFSSink.class);
 

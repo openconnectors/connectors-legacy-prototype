@@ -26,7 +26,7 @@ import org.streamlio.common.util.InstanceBuilder;
 import org.streamlio.common.util.PropertiesValidator;
 import org.streamlio.connect.SinkConnector;
 import org.streamlio.connectors.pulsar.connect.config.PulsarConnectorConfiguration;
-import com.streamlio.connectors.pulsar.connect.util.*;
+import org.streamlio.connectors.pulsar.connect.util.*;
 import org.apache.pulsar.client.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

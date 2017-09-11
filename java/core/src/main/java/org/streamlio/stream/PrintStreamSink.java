@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
 
-public class PrintStreamSink extends SinkConnector<SinkTaskConfig,SinkConnectorContext,Config,Message> {
+public class PrintStreamSink extends SinkConnector<SinkConnectorContext,Message> {
 
     private String outputFormat;
 

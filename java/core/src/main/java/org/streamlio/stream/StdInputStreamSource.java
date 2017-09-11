@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class StdInputStreamSource extends SourceConnector<SourceTaskConfig,SourceConnectorContext,Config,Message> {
+public class StdInputStreamSource extends SourceConnector<SourceConnectorContext,Message> {
 
     private InputStream stream;
     private InputStreamReader streamReader;
@@ -43,7 +43,7 @@ public class StdInputStreamSource extends SourceConnector<SourceTaskConfig,Sourc
     }
 
     @Override
-    public void start(SourceContext<Message, Config> ctx) throws Exception {
+    public void start(SourceContext<Message> ctx) throws Exception {
 
         while (true) {
             Thread.sleep(10);
