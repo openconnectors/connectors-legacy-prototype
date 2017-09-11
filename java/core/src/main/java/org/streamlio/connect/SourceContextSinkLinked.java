@@ -6,8 +6,8 @@ import org.streamlio.util.SinkConnectorContext;
 import org.streamlio.util.SinkTaskConfig;
 
 public abstract class SourceContextSinkLinked
-        <T extends SinkConnectorContext, U extends Message, V extends Message>
-        implements SourceContext<V> {
+        <T extends SinkConnectorContext, U extends Message>
+        implements SourceContext<U> {
 
     public SinkConnector<T,U> getSink() {
         return sink;

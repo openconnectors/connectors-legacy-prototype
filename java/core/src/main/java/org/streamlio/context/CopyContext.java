@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class CopyContext<T extends SinkConnectorContext, U extends Message>
-    extends ETLContext<T,U,V,W,T>{
+    extends ETLContext<T,U,U>{
 
-    public CopyContext(SinkConnector<U, V, W, T> sink) {
+    public CopyContext(SinkConnector<T,U> sink) {
         super(sink, null);
     }
 

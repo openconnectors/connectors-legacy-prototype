@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class ETLContext
         <T extends SinkConnectorContext,U extends Message,V extends Message>
-        extends SourceContextSinkLinked<T,U,V> {
+        extends SourceContextSinkLinked<T,U> {
 
     private Mapper<U,V> mapper;
 
@@ -26,11 +26,6 @@ public class ETLContext
     public void setup(Config config) throws Exception {
         mapper.setup(config);
         this.getSink().open(config);
-    }
-
-    @Override
-    public void collect(Collection<V> messages) throws Exception {
-
     }
 
     @Override
