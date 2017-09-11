@@ -1,4 +1,4 @@
-package examples;
+package examples.localfs;
 
 import org.streamlio.config.Config;
 import org.streamlio.config.ConfigProvider;

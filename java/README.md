@@ -104,9 +104,9 @@ Heron Topology wrapping Heron spout and bolt into a simple topology
 Local Echo std in to std in a a copy context
 
 ```
-java -cp examples/build/libs/examples-uber.jar "examples.LocalStreamCopyRunner"
-java -cp examples/build/libs/examples-uber.jar "examples.LocalFSCopyRunner"
-java -cp examples/build/libs/examples-uber.jar "examples.FileCopyTopology"
+java -cp examples/build/libs/examples-uber.jar "examples.localfs.LocalStreamCopyRunner"
+java -cp examples/build/libs/examples-uber.jar "examples.localfs.LocalFSCopyRunner"
+java -cp examples/build/libs/examples-uber.jar "examples.localfs.FileCopyTopology"
 ```
 
 

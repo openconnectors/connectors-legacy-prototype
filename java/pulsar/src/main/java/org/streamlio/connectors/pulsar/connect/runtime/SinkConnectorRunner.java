@@ -32,9 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.streamlio.connectors.pulsar.connect.util.PulsarUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 class SinkConnectorRunner extends PulsarConnectorRunner {
     private static final Logger LOG = LoggerFactory.getLogger(SinkConnectorRunner.class);
@@ -59,8 +57,8 @@ class SinkConnectorRunner extends PulsarConnectorRunner {
     @Override
     public void run() {
         try (PulsarClient client = createClient(properties)) {
-            //
-            connector.initialize(properties);
+
+            //connector.initialize(properties);
 
             final String topic = getProperty(PulsarConnectorConfiguration.KEY_TOPIC);
             final String subscription = getProperty(PulsarConnectorConfiguration.KEY_SUBSCRIPTION);
@@ -83,7 +81,7 @@ class SinkConnectorRunner extends PulsarConnectorRunner {
         } catch (PulsarClientException pce) {
             throw new ConnectorExecutionException(pce);
         } finally {
-            connector.close();
+            //connector.close();
         }
     }
 
@@ -96,13 +94,13 @@ class SinkConnectorRunner extends PulsarConnectorRunner {
                 currentMessage = consumer.receive();
                 messageIds.add(currentMessage.getMessageId());
 
-                connector.processMessage(currentMessage);
+                connector.publish(Collections.singleton(currentMessage));
                 bytesProcessed += currentMessage.getData().length;
 
                 // TODO add an option for a flush interval
                 // is it time to acknowledge?
                 if (bytesProcessed >= commitIntervalBytesMb) {
-                    connector.commit();
+                    //connector.commit();
 
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("acknowledging {} messages", messageIds.size());

@@ -1,4 +1,4 @@
-package examples;
+package examples.localfs;
 
 import com.twitter.heron.api.Config;
 import com.twitter.heron.api.topology.TopologyBuilder;
