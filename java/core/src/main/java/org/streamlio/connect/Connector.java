@@ -25,12 +25,12 @@ import org.streamlio.util.Versionable;
 import java.io.Closeable;
 import java.io.Serializable;
 
-public abstract class Connector<U extends ConnectorContext>
+public abstract class Connector<T extends ConnectorContext>
         implements Versionable, Closeable, Serializable {
 
-    private U context;
+    private T context;
 
-    public void initialize(U ctx){
+    public void initialize(T ctx){
         this.context = ctx;
     }
 
@@ -41,7 +41,7 @@ public abstract class Connector<U extends ConnectorContext>
         open(config);
     }
 
-    public U getContext() {
+    public T getContext() {
         return context;
     }
 }

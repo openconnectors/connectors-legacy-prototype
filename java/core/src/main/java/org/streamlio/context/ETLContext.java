@@ -13,11 +13,11 @@ import java.util.Collection;
 
 public class ETLContext
         <T extends SinkConnectorContext,U extends Message,V extends Message>
-        extends SourceContextSinkLinked<T,U> {
+        extends SourceContextSinkLinked<T,U,V> {
 
     private Mapper<U,V> mapper;
 
-    public ETLContext(SinkConnector<T,U> sink, Mapper<U,V> mapper) {
+    public ETLContext(SinkConnector<T,V> sink, Mapper<U,V> mapper) {
         super(sink);
         this.mapper = mapper;
     }
