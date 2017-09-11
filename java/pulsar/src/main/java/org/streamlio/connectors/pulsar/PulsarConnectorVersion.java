@@ -17,7 +17,13 @@
  * under the License.
  */
 
-package org.streamlio.fs;
+package org.streamlio.connectors.pulsar;
 
-public class FileSystem {
+public class PulsarConnectorVersion {
+
+    private static final String VERSION = "pulsar.io.connector-0.0.1";
+
+    public static String getVersion(){
+        return VERSION;
+    }
 }

@@ -17,7 +17,28 @@
  * under the License.
  */
 
-package org.streamlio.fs;
+package org.streamlio.connectors.pulsar;
 
-public class FileSystem {
+import com.twitter.heron.api.topology.OutputFieldsDeclarer;
+import com.twitter.heron.api.tuple.Values;
+import org.apache.pulsar.client.api.Message;
+
+import java.io.Serializable;
+
+public interface MessageToValuesMapper extends Serializable {
+
+    /**
+     * Convert {@link org.apache.pulsar.client.api.Message} to tuple values.
+     *
+     * @param message
+     * @return
+     */
+    Values toValues(Message message);
+
+    /**
+     * Declare the output schema for the spout.
+     *
+     * @param declarer
+     */
+    void declareOutputFields(OutputFieldsDeclarer declarer);
 }
