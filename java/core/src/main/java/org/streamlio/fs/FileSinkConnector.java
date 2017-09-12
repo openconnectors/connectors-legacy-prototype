@@ -19,7 +19,7 @@
 //package com.streamlio.impl.fs;
 //
 //import com.streamlio.connector.SinkConnector;
-//import com.streamlio.message.Message;
+//import com.streamlio.message.BaseMessage;
 //import com.streamlio.common.io.util.IoUtils;
 //import com.streamlio.common.util.Bytes;
 //import org.slf4j.Logger;
@@ -34,7 +34,7 @@
 ///**
 // * Write files in the following format /base-path/{date}/output-{time}
 // */
-//public class FileSinkConnector<T extends Message> extends SinkConnector<T> {
+//public class FileSinkConnector<T extends BaseMessage> extends SinkConnector<T> {
 //
 //    private static final Logger LOG = LoggerFactory.getLogger(FileSinkConnector.class);
 //

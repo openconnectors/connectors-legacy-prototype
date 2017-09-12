@@ -21,8 +21,9 @@ package org.streamlio.message;
 
 import java.io.Serializable;
 
-public interface MessageId extends Serializable {
+public interface BaseMessage<T extends BaseMessageId> extends Serializable {
 
-    byte[] toByteArray();
+    byte[] getData();
 
+    T getMessageId();
 }

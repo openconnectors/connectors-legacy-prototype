@@ -23,7 +23,6 @@ import org.streamlio.config.Config;
 import org.streamlio.connect.SourceConnector;
 import org.streamlio.connect.SourceContext;
 import org.streamlio.util.SourceConnectorContext;
-import org.streamlio.util.SourceTaskConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -35,7 +34,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class LocalFSSource extends SourceConnector<SourceConnectorContext,LineDataMessage> {
+public class LocalFSSource extends SourceConnector<SourceConnectorContext,LineDataBaseMessage> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalFSSource.class);
 
@@ -61,12 +60,12 @@ public class LocalFSSource extends SourceConnector<SourceConnectorContext,LineDa
 
 
     @Override
-    public void start(SourceContext<LineDataMessage> ctx) throws Exception {
+    public void start(SourceContext<LineDataBaseMessage> ctx) throws Exception {
         try {
             String line;
             while ((line = reader.readLine()) != null) {
                 long id = linesRead.incrementAndGet();
-                ctx.collect(Collections.singletonList(new LineDataMessage(id, line)));
+                ctx.collect(Collections.singletonList(new LineDataBaseMessage(id, line)));
             }
             LOG.info("Finished reading file, " + linesRead.get() + " lines read");
             this.close();
@@ -83,7 +82,7 @@ public class LocalFSSource extends SourceConnector<SourceConnectorContext,LineDa
     }
 
     @Override
-    public Collection<LineDataMessage> poll() throws Exception {
+    public Collection<LineDataBaseMessage> poll() throws Exception {
         throw new NotImplementedException();
     }
 

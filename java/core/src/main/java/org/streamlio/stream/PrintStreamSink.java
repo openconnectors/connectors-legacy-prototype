@@ -22,23 +22,22 @@ package org.streamlio.stream;
 import com.google.common.primitives.Longs;
 import org.streamlio.config.Config;
 import org.streamlio.connect.SinkConnector;
-import org.streamlio.message.Message;
+import org.streamlio.message.BaseMessage;
 import org.streamlio.util.SinkConnectorContext;
-import org.streamlio.util.SinkTaskConfig;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
 
-public class PrintStreamSink extends SinkConnector<SinkConnectorContext,Message> {
+public class PrintStreamSink extends SinkConnector<SinkConnectorContext,BaseMessage> {
 
     private String outputFormat;
 
     private PrintStream stream = System.out;
 
     @Override
-    public void publish(Collection<Message> messages) throws Exception {
-        for(Message message : messages){
+    public void publish(Collection<BaseMessage> messages) throws Exception {
+        for(BaseMessage message : messages){
             final String output = String.format(
                     outputFormat,
                     Longs.fromByteArray(message.getMessageId().toByteArray()),

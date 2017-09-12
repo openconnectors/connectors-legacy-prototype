@@ -17,17 +17,12 @@
  * under the License.
  */
 
-package org.streamlio.connect;
+package org.streamlio.message;
 
-import org.streamlio.config.Config;
-import org.streamlio.message.BaseMessage;
-
-import java.io.Closeable;
 import java.io.Serializable;
-import java.util.Collection;
 
-public interface SourceContext<T> extends Closeable, Serializable {
+public interface BaseMessageId extends Serializable {
 
-    void setup(Config config) throws Exception;
-    void collect(Collection<T> messages) throws Exception;
+    byte[] toByteArray();
+
 }

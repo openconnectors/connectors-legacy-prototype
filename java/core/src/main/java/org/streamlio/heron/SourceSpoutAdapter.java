@@ -21,7 +21,7 @@ package org.streamlio.heron;
 
 import org.streamlio.config.MapConfig;
 import org.streamlio.connect.SourceConnector;
-import org.streamlio.message.Message;
+import org.streamlio.message.BaseMessage;
 import com.twitter.heron.api.metric.IMetric;
 import com.twitter.heron.api.spout.BaseRichSpout;
 import com.twitter.heron.api.spout.SpoutOutputCollector;
@@ -31,7 +31,7 @@ import com.twitter.heron.api.topology.TopologyContext;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class SourceSpoutAdapter<T extends SourceConnector, U extends MessageToValuesMapper, V extends Message>
+public abstract class SourceSpoutAdapter<T extends SourceConnector, U extends MessageToValuesMapper, V extends BaseMessage>
         extends BaseRichSpout implements IMetric {
 
     private T source;

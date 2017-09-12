@@ -19,33 +19,58 @@
 
 package org.streamlio.connectors.pulsar;
 
+import org.apache.commons.lang3.SerializationUtils;
+import org.apache.pulsar.client.api.Consumer;
+import org.apache.pulsar.client.api.Message;
+import org.apache.pulsar.client.api.PulsarClient;
 import org.streamlio.config.Config;
-import org.streamlio.connect.SinkConnector;
-import org.streamlio.localfs.LineDataMessage;
-import org.streamlio.util.SinkConnectorContext;
+import org.streamlio.connect.SourceConnector;
+import org.streamlio.connect.SourceContext;
+import org.streamlio.message.ByteableBaseMessage;
+//import org.streamlio.message.BaseMessage;
+import org.streamlio.util.SourceConnectorContext;
 
 import java.io.IOException;
 import java.util.Collection;
 
-public class PulsarSource extends SinkConnector<SinkConnectorContext,LineDataMessage> {
+public class PulsarSource extends SourceConnector<SourceConnectorContext, Object> {
+
+    private PulsarClient client;
+    private Consumer consumer;
+
 
     @Override
-    public void publish(Collection<LineDataMessage> messages) throws Exception {
-
-    }
-
-    @Override
-    public void flush() throws Exception {
-
+    public Collection<Object> poll() throws Exception {
+        return null;
     }
 
     @Override
     public void open(Config config) throws Exception {
 
+        this.client = PulsarClient.create(config.getString(ConfigKeys.SERVICE_URL));
+        this.consumer = client.subscribe(
+                config.getString(ConfigKeys.CONSUMER_URL),
+                config.getString(ConfigKeys.SUBSCRIPTION_NAME));
+
     }
 
     @Override
     public void close() throws IOException {
+        this.consumer.close();
+        this.client.close();
+    }
+
+    @Override
+    public void start(SourceContext<Object> ctx) throws Exception {
+        while (true) {
+            Message msg = consumer.receive();
+            ctx.collect(SerializationUtils.deserialize(msg.getData());
+            consumer.acknowledge(msg);
+        }
+    }
+
+    @Override
+    public void stop() throws Exception {
 
     }
 

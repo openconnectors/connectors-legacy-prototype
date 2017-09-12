@@ -19,16 +19,16 @@
 
 package org.streamlio.localfs;
 
-import org.streamlio.message.Message;
+import org.streamlio.message.BaseMessage;
 
-public class LineDataMessage implements Message<LineMessageId> {
+public class LineDataBaseMessage implements BaseMessage<LineBaseMessageId> {
 
     private final String data;
-    private final LineMessageId messageId;
+    private final LineBaseMessageId messageId;
 
-    public LineDataMessage(long lineNum, String data) {
+    public LineDataBaseMessage(long lineNum, String data) {
         this.data = data;
-        this.messageId = new LineMessageId(lineNum);
+        this.messageId = new LineBaseMessageId(lineNum);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class LineDataMessage implements Message<LineMessageId> {
     }
 
     @Override
-    public LineMessageId getMessageId() {
+    public LineBaseMessageId getMessageId() {
         return messageId;
     }
 

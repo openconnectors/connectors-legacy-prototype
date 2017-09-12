@@ -20,12 +20,12 @@
 package org.streamlio.runner;
 
 import org.streamlio.config.Config;
-import org.streamlio.message.Message;
+import org.streamlio.message.BaseMessage;
 
 import java.io.Closeable;
 import java.util.Collection;
 
-public abstract class Mapper<T extends Message, U extends Message> implements Closeable {
+public abstract class Mapper<T extends BaseMessage, U extends BaseMessage> implements Closeable {
 
     abstract public void setup(Config config);
 

@@ -23,15 +23,15 @@ public class ConfigKeys {
 
     public static final int DEFAULT_OPERATION_TIMEOUT_SECONDS = 60 * 5; // 5 minutes
 
-    public static final String KEY_PRODUCER_URL = "pulsar.producer.url";
+    public static final String PRODUCER_URL = "pulsar.producer.url";
 
-    public static final String KEY_CONSUMER_URL = "pulsar.consumer.url";
+    public static final String CONSUMER_URL = "pulsar.consumer.url";
 
-    public static final String KEY_SERVICE_URL = "pulsar.serviceUrl";
+    public static final String SERVICE_URL = "pulsar.serviceUrl";
 
-    public static final String KEY_SUBSCRIPTION = "pulsar.consumer.subscription";
+    public static final String SUBSCRIPTION_NAME = "pulsar.consumer.subscription";
 
-    public static final String KEY_COMMIT_INTERVAL_MB = "pulsar.commit.interval.bytes.mb";
+    public static final String COMMIT_INTERVAL_MB = "pulsar.commit.interval.bytes.mb";
 
     private ConfigKeys() {}
 }

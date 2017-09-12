@@ -19,16 +19,16 @@
 
 package org.streamlio.heron;
 
-import org.streamlio.message.Message;
+import org.streamlio.message.BaseMessage;
 import com.twitter.heron.api.topology.OutputFieldsDeclarer;
 import com.twitter.heron.api.tuple.Values;
 
 import java.io.Serializable;
 
-public interface MessageToValuesMapper<T extends Message> extends Serializable {
+public interface MessageToValuesMapper<T extends BaseMessage> extends Serializable {
 
     /**
-     * Convert {@link Message} to tuple values.
+     * Convert {@link BaseMessage} to tuple values.
      *
      * @param message
      * @return

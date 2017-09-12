@@ -19,7 +19,7 @@
 package org.streamlio.fs;
 
 
-import org.streamlio.message.Message;
+import org.streamlio.message.BaseMessage;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -30,7 +30,7 @@ public class BytesWriter extends BaseWriter {
     private final ByteBuffer header = ByteBuffer.allocate(4);
 
     @Override
-    public void write(Message message) throws IOException {
+    public void write(BaseMessage message) throws IOException {
         final byte[] data = message.getData();
         final int size = data.length;
         header.clear();

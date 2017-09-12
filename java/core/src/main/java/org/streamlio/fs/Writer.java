@@ -18,12 +18,12 @@
  */
 package org.streamlio.fs;
 
-import org.streamlio.message.Message;
+import org.streamlio.message.BaseMessage;
 
 import java.io.Closeable;
 import java.io.IOException;
 
-public interface Writer<T extends Message> extends Closeable {
+public interface Writer<T extends BaseMessage> extends Closeable {
 
     void open(String path) throws IOException;
 

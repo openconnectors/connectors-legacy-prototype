@@ -21,7 +21,7 @@ package org.streamlio.heron;
 
 import org.streamlio.config.MapConfig;
 import org.streamlio.connect.SinkConnector;
-import org.streamlio.message.Message;
+import org.streamlio.message.BaseMessage;
 import com.twitter.heron.api.bolt.BaseRichBolt;
 import com.twitter.heron.api.bolt.OutputCollector;
 import com.twitter.heron.api.metric.IMetric;
@@ -70,7 +70,7 @@ public abstract class SinkBoltAdapter<T extends SinkConnector, U extends TupleTo
 
     @Override
     public void execute(Tuple input) {
-        Message message = tupleMapper.toMessage(input);
+        BaseMessage message = tupleMapper.toMessage(input);
         try {
             sink.publish(Collections.singleton(message));
         } catch (Exception e) {

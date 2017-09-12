@@ -25,10 +25,10 @@ import com.twitter.heron.api.topology.OutputFieldsDeclarer;
 import com.twitter.heron.api.tuple.Fields;
 import com.twitter.heron.api.tuple.Values;
 
-public class LineValueMapper implements MessageToValuesMapper<LineDataMessage>{
+public class LineValueMapper implements MessageToValuesMapper<LineDataBaseMessage>{
 
     @Override
-    public Values toValues(LineDataMessage message) {
+    public Values toValues(LineDataBaseMessage message) {
         return new Values(
                 Longs.fromByteArray(message.getMessageId().toByteArray()),
                 new String(message.getData())

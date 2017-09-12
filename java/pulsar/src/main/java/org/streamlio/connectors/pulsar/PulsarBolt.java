@@ -68,7 +68,7 @@ public class PulsarBolt extends BaseRichBolt implements IMetric {
     private volatile long messagesSent = 0;
     private volatile long messageSizeSent = 0;
 
-    public PulsarBolt(PulsarBuilder.ProducerBuilder builder) {
+    public PulsarBolt(Builder builder) {
         serviceUrl = builder.serviceUrl;
         topic = builder.topic;
         tupleToMessageMapper = builder.tupleToMessageMapper;
@@ -134,14 +134,14 @@ public class PulsarBolt extends BaseRichBolt implements IMetric {
                             if (ex != null) {
                                 collector.reportError(ex);
                                 collector.fail(input);
-                                LOG.error("[{}] Message send failed", boltId, ex);
+                                LOG.error("[{}] BaseMessage send failed", boltId, ex);
 
                             } else {
                                 collector.ack(input);
                                 ++messagesSent;
                                 messageSizeSent += messageSizeToBeSent;
                                 if (LOG.isDebugEnabled()) {
-                                    LOG.debug("[{}] Message sent with id {}", boltId, msg.getMessageId());
+                                    LOG.debug("[{}] BaseMessage sent with id {}", boltId, msg.getMessageId());
                                 }
                             }
                         }
@@ -151,7 +151,7 @@ public class PulsarBolt extends BaseRichBolt implements IMetric {
                 }
             }
         } catch (Exception e) {
-            LOG.error("[{}] Message processing failed", boltId, e);
+            LOG.error("[{}] BaseMessage processing failed", boltId, e);
             collector.reportError(e);
             collector.fail(input);
         }
@@ -219,59 +219,59 @@ public class PulsarBolt extends BaseRichBolt implements IMetric {
         return metrics;
     }
 
-//    public static class Builder {
-//        private String serviceUrl;
-//        private String topic;
-//        private ClientConfiguration clientConfiguration;
-//        private ProducerConfiguration producerConfiguration;
-//        private TupleToMessageMapper tupleToMessageMapper;
-//        private int metricsTimeIntervalInSeconds;
-//
-//        @SuppressWarnings("HiddenField")
-//        public PulsarBolt.Builder setServiceUrl(String serviceUrl) {
-//            this.serviceUrl = serviceUrl;
-//            return this;
-//        }
-//
-//        @SuppressWarnings("HiddenField")
-//        public PulsarBolt.Builder setTopic(String topic) {
-//            this.topic = topic;
-//            return this;
-//        }
-//
-//        @SuppressWarnings("HiddenField")
-//        public PulsarBolt.Builder setClientConfiguration(
-//                ClientConfiguration clientConfiguration) {
-//            this.clientConfiguration = clientConfiguration;
-//            return this;
-//        }
-//
-//        @SuppressWarnings("HiddenField")
-//        public PulsarBolt.Builder setProducerConfiguration(
-//                ProducerConfiguration producerConfiguration) {
-//            this.producerConfiguration = producerConfiguration;
-//            return this;
-//        }
-//
-//        @SuppressWarnings("HiddenField")
-//        public PulsarBolt.Builder setTupleToMessageMapper(
-//                TupleToMessageMapper tupleToMessageMapper) {
-//            this.tupleToMessageMapper = tupleToMessageMapper;
-//            return this;
-//        }
-//
-//        public PulsarBolt.Builder setMetricsTimeInterval(int seconds) {
-//            metricsTimeIntervalInSeconds = seconds;
-//            return this;
-//        }
-//
-//        public PulsarBolt build() {
-//            Utils.checkNotNull(serviceUrl, "A service url must be provided");
-//            Utils.checkNotNull(topic, "A topic must be provided");
-//            Utils.checkNotNull(tupleToMessageMapper,
-//                    "A TupleToMessageMapper must be provided");
-//            return new PulsarBolt(this);
-//        }
-//    }
+    public static class Builder {
+        private String serviceUrl;
+        private String topic;
+        private ClientConfiguration clientConfiguration;
+        private ProducerConfiguration producerConfiguration;
+        private TupleToMessageMapper tupleToMessageMapper;
+        private int metricsTimeIntervalInSeconds;
+
+        @SuppressWarnings("HiddenField")
+        public PulsarBolt.Builder setServiceUrl(String serviceUrl) {
+            this.serviceUrl = serviceUrl;
+            return this;
+        }
+
+        @SuppressWarnings("HiddenField")
+        public PulsarBolt.Builder setTopic(String topic) {
+            this.topic = topic;
+            return this;
+        }
+
+        @SuppressWarnings("HiddenField")
+        public PulsarBolt.Builder setClientConfiguration(
+                ClientConfiguration clientConfiguration) {
+            this.clientConfiguration = clientConfiguration;
+            return this;
+        }
+
+        @SuppressWarnings("HiddenField")
+        public PulsarBolt.Builder setProducerConfiguration(
+                ProducerConfiguration producerConfiguration) {
+            this.producerConfiguration = producerConfiguration;
+            return this;
+        }
+
+        @SuppressWarnings("HiddenField")
+        public PulsarBolt.Builder setTupleToMessageMapper(
+                TupleToMessageMapper tupleToMessageMapper) {
+            this.tupleToMessageMapper = tupleToMessageMapper;
+            return this;
+        }
+
+        public PulsarBolt.Builder setMetricsTimeInterval(int seconds) {
+            metricsTimeIntervalInSeconds = seconds;
+            return this;
+        }
+
+        public PulsarBolt build() {
+            Utils.checkNotNull(serviceUrl, "A service url must be provided");
+            Utils.checkNotNull(topic, "A topic must be provided");
+            Utils.checkNotNull(tupleToMessageMapper,
+                    "A TupleToMessageMapper must be provided");
+            return new PulsarBolt(this);
+        }
+    }
 
 }

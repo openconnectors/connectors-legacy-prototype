@@ -20,13 +20,13 @@
 package org.streamlio.localfs;
 
 import com.google.common.primitives.Longs;
-import org.streamlio.message.MessageId;
+import org.streamlio.message.BaseMessageId;
 
-public class LineMessageId implements MessageId {
+public class LineBaseMessageId implements BaseMessageId {
 
     private final long lineNumber;
 
-    public LineMessageId(final long lineNumber){
+    public LineBaseMessageId(final long lineNumber){
         this.lineNumber = lineNumber;
     }
 

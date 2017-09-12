@@ -22,7 +22,6 @@ package org.streamlio.localfs;
 import org.streamlio.config.Config;
 import org.streamlio.connect.SinkConnector;
 import org.streamlio.util.SinkConnectorContext;
-import org.streamlio.util.SinkTaskConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class LocalFSSink extends SinkConnector<SinkConnectorContext,LineDataMessage> {
+public class LocalFSSink extends SinkConnector<SinkConnectorContext,LineDataBaseMessage> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalFSSink.class);
 
@@ -46,9 +45,9 @@ public class LocalFSSink extends SinkConnector<SinkConnectorContext,LineDataMess
     }
 
     @Override
-    public void publish(Collection<LineDataMessage> lines) throws Exception {
+    public void publish(Collection<LineDataBaseMessage> lines) throws Exception {
         try {
-            for(LineDataMessage message : lines){
+            for(LineDataBaseMessage message : lines){
                 writer.write(new String(message.getData()));
                 writer.write("\n");
                 linesWritten.incrementAndGet();

@@ -24,11 +24,11 @@ import com.twitter.heron.api.topology.OutputFieldsDeclarer;
 import com.twitter.heron.api.tuple.Fields;
 import com.twitter.heron.api.tuple.Tuple;
 
-public class LineTupleMapper implements TupleToMessageMapper<LineDataMessage> {
+public class LineTupleMapper implements TupleToMessageMapper<LineDataBaseMessage> {
 
     @Override
-    public LineDataMessage toMessage(Tuple tuple) {
-        return new LineDataMessage(tuple.getLong(0), tuple.getString(1));
+    public LineDataBaseMessage toMessage(Tuple tuple) {
+        return new LineDataBaseMessage(tuple.getLong(0), tuple.getString(1));
     }
 
     @Override

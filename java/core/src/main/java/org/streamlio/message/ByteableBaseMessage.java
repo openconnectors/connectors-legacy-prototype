@@ -19,11 +19,10 @@
 
 package org.streamlio.message;
 
-import java.io.Serializable;
+public interface ByteableBaseMessage extends BaseMessage {
 
-public interface Message<T extends MessageId> extends Serializable {
+    ByteableBaseMessage fromBytes(byte[] input);
 
-    byte[] getData();
+    byte[] toBytes();
 
-    T getMessageId();
 }

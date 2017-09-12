@@ -21,13 +21,13 @@ package org.streamlio.heron;
 
 import org.streamlio.config.Config;
 import org.streamlio.connect.SourceContext;
-import org.streamlio.message.Message;
+import org.streamlio.message.BaseMessage;
 import com.twitter.heron.api.spout.SpoutOutputCollector;
 
 import java.io.IOException;
 import java.util.Collection;
 
-public class SpoutSourceContext<T extends Message> implements SourceContext<T> {
+public class SpoutSourceContext<T extends BaseMessage> implements SourceContext<T> {
 
     private SpoutOutputCollector collector;
     private MessageToValuesMapper<T> messageMapper;
