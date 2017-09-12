@@ -28,6 +28,7 @@ subprojects {
 	apply plugin: 'java'
 	apply plugin: 'maven-publish'
 	apply plugin: 'git-repo'
+	apply plugin: 'signing'
 
 	repositories {
     	github("streamlio", "maven-repo", "master", "releases")
@@ -66,6 +67,12 @@ subprojects {
 		testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 	}
 
+	// pom file name
+	ext {
+    	pomFilePath = "${project.projectDir}/build/pom.xml"
+    	pomFile = file(pomFilePath)
+	}
+
 	task sourcesJar(type: Jar, dependsOn: classes) {
 		classifier = 'sources'
 		from sourceSets.main.allSource
@@ -76,9 +83,45 @@ subprojects {
 		from javadoc.destinationDir
 	}
 
+	// add configuration for pom signing
+	configurations {
+	    pom
+	}
+
+	// summarize artifacts
 	artifacts {
+	    archives jar
+	    archives sourcesJar
+	    archives javadocJar
+	    if (pomFile.exists()) {
+	        pom pomFile
+	    }
+	}
+
+	// extract pom signature
+	def getPomSignature = {
+    	return project.tasks.signPom.signatureFiles.collect{it}[0]
+	}
+
+	// sign all artifacts
+	task signJars (type : Sign, dependsOn: [jar, javadocJar, sourcesJar]) {
+	    sign configurations.archives
+	}
+
+	// sign pom
+	task signPom(type: Sign) {
+    	sign configurations.pom
+	}
+
+	task preparePublication (dependsOn : signJars)
+
+	artifacts {
+		archives jar
 		archives sourcesJar
 		archives javadocJar
+		if (pomFile.exists()) {
+        	pom pomFile
+    	}
 	}
 
 	task fatJar(type: Jar) {
