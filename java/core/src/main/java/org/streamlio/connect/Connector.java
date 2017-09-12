@@ -25,8 +25,7 @@ import org.streamlio.util.Versionable;
 import java.io.Closeable;
 import java.io.Serializable;
 
-public abstract class Connector<T extends ConnectorContext>
-        implements Versionable, Closeable, Serializable {
+public abstract class Connector<T extends ConnectorContext> implements Versionable, Closeable, Serializable {
 
     private T context;
 

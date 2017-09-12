@@ -19,5 +19,35 @@
 
 package examples.pulsar;
 
-public class LocalPulsarStreamReader {
+import examples.localfs.LocalStreamCopyRunner;
+import org.streamlio.config.Config;
+import org.streamlio.config.ConfigProvider;
+import org.streamlio.connect.SourceConnector;
+import org.streamlio.connect.SourceContextSinkLinked;
+import org.streamlio.connectors.pulsar.PulsarSink;
+import org.streamlio.context.CopyContext;
+import org.streamlio.runner.LinkedBasicRunner;
+import org.streamlio.stream.StdInputStreamSource;
+
+
+public class LocalPulsarStreamReader extends LinkedBasicRunner {
+
+    public LocalPulsarStreamReader(SourceConnector source, SourceContextSinkLinked sourceContext) {
+        super(source, sourceContext);
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        PulsarSink sink = new PulsarSink();
+
+        LocalStreamCopyRunner runner = new LocalStreamCopyRunner(
+                new StdInputStreamSource(),
+                new CopyContext(sink)
+        );
+
+        Config config = new ConfigProvider();
+        runner.setup(config);
+        runner.run();
+    }
 }
+

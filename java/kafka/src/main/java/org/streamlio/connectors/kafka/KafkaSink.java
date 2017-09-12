@@ -17,18 +17,7 @@
  * under the License.
  */
 
-package org.streamlio.runner;
+package org.streamlio.connectors.kafka;
 
-import org.streamlio.config.Config;
-import org.streamlio.message.BaseMessage;
-
-import java.io.Closeable;
-import java.util.Collection;
-
-public abstract class Mapper<T extends BaseMessage, U extends BaseMessage> implements Closeable {
-
-    abstract public void setup(Config config);
-
-    abstract public Collection<U> transform(Collection<T> inputMessages);
-
+public class KafkaSink {
 }

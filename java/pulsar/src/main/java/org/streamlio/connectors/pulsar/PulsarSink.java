@@ -49,7 +49,7 @@ public class PulsarSink extends SinkConnector<SinkConnectorContext,BaseMessage> 
     @Override
     public void open(Config config) throws Exception {
 
-        this.client = PulsarClient.create(config.getString(ConfigKeys.KEY_SERVICE_URL));
+        this.client = PulsarClient.create(config.getString(ConfigKeys.SERVICE_URL));
         this.producer = client.createProducer(
                 config.getString(ConfigKeys.PRODUCER_URL));
 

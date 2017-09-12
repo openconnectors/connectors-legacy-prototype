@@ -23,7 +23,7 @@ import org.streamlio.message.BaseMessage;
 import org.streamlio.util.SinkConnectorContext;
 
 public abstract class SourceContextSinkLinked
-        <T extends SinkConnectorContext, U extends BaseMessage, V extends BaseMessage>
+        <T extends SinkConnectorContext,U,V>
         implements SourceContext<U> {
 
     public SinkConnector<T,V> getSink() {

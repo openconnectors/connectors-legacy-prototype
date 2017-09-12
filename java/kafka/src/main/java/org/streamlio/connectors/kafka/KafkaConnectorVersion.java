@@ -17,7 +17,13 @@
  * under the License.
  */
 
-package examples.pulsar;
+package org.streamlio.connectors.kafka;
 
-public class LocalPulsarStreamWriter {
+public class KafkaConnectorVersion {
+
+    private static final String VERSION = "kafka.io.connector-0.0.1";
+
+    public static String getVersion(){
+        return VERSION;
+    }
 }

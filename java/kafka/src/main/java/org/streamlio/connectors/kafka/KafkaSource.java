@@ -17,29 +17,7 @@
  * under the License.
  */
 
-package org.streamlio.runner;
+package org.streamlio.connectors.kafka;
 
-import org.streamlio.config.Config;
-import org.streamlio.connect.SourceConnector;
-import org.streamlio.connect.SourceContextSinkLinked;
-
-public class LinkedBasicRunner<T extends SourceConnector, U extends SourceContextSinkLinked>{
-
-    T source;
-    U sourceContextLinked;
-
-    public LinkedBasicRunner(T source, U sourceContextLinked){
-        this.source = source;
-        this.sourceContextLinked = sourceContextLinked;
-    }
-
-    public void setup(Config config) throws Exception{
-        this.source.open(config);
-        this.sourceContextLinked.setup(config);
-    }
-
-    public void run() throws Exception {
-        this.source.start(this.sourceContextLinked);
-    }
-
+public class KafkaSource {
 }

@@ -27,20 +27,20 @@ import org.streamlio.config.Config;
 import org.streamlio.connect.SourceConnector;
 import org.streamlio.connect.SourceContext;
 import org.streamlio.message.ByteableBaseMessage;
-//import org.streamlio.message.BaseMessage;
 import org.streamlio.util.SourceConnectorContext;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 
-public class PulsarSource extends SourceConnector<SourceConnectorContext, Object> {
+public class PulsarSource extends SourceConnector<SourceConnectorContext, String> {
 
     private PulsarClient client;
     private Consumer consumer;
 
 
     @Override
-    public Collection<Object> poll() throws Exception {
+    public Collection<String> poll() throws Exception {
         return null;
     }
 
@@ -61,10 +61,13 @@ public class PulsarSource extends SourceConnector<SourceConnectorContext, Object
     }
 
     @Override
-    public void start(SourceContext<Object> ctx) throws Exception {
+    public void start(SourceContext<String> ctx) throws Exception {
         while (true) {
             Message msg = consumer.receive();
-            ctx.collect(SerializationUtils.deserialize(msg.getData());
+            ctx.collect(
+                    Collections.singleton(
+                            new String(msg.getData()))
+            );
             consumer.acknowledge(msg);
         }
     }

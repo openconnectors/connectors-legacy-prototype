@@ -19,5 +19,5 @@
 
 package examples.pulsar;
 
-public class LocalPulsarCopyRunner {
+public class PulsarCopyTopology {
 }

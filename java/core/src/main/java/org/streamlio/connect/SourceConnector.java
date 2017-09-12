@@ -25,7 +25,7 @@ import org.streamlio.util.SourceConnectorContext;
 import java.util.Collection;
 
 public abstract class SourceConnector
-        <T extends SourceConnectorContext, U extends BaseMessage>
+        <T extends SourceConnectorContext, U>
         extends Connector<T> implements Task<SourceContext<U>>{
 
     public abstract Collection<U> poll() throws Exception;

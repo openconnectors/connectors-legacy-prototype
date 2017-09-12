@@ -24,7 +24,7 @@ import org.streamlio.connect.SourceConnector;
 import org.streamlio.connect.SourceContext;
 
 public abstract class BasicRunner
-        <T extends SourceConnector, U extends SourceContext, V extends SinkConnector, W extends Config> {
+        <T extends SourceConnector, U extends SourceContext, V extends SinkConnector> {
 
     T source;
     U sourceContext;
@@ -36,7 +36,7 @@ public abstract class BasicRunner
         this.sink = sink;
     }
 
-    public void setup(W config) throws Exception{
+    public void setup(Config config) throws Exception{
         this.source.open(config);
         this.sink.open(config);
         this.sourceContext.setup(config);

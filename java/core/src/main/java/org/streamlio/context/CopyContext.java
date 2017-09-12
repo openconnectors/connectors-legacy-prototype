@@ -21,13 +21,12 @@ package org.streamlio.context;
 
 import org.streamlio.config.Config;
 import org.streamlio.connect.SinkConnector;
-import org.streamlio.message.BaseMessage;
 import org.streamlio.util.SinkConnectorContext;
 
 import java.io.IOException;
 import java.util.Collection;
 
-public class CopyContext<T extends SinkConnectorContext, U extends BaseMessage>
+public class CopyContext<T extends SinkConnectorContext,U>
     extends ETLContext<T,U,U>{
 
     public CopyContext(SinkConnector<T,U> sink) {

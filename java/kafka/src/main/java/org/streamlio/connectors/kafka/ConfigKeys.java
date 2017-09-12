@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package examples.pulsar;
+package org.streamlio.connectors.kafka;
 
-public class LocalPulsarCopyTopology {
+public class ConfigKeys {
 }

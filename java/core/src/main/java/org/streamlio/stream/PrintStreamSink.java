@@ -19,29 +19,29 @@
 
 package org.streamlio.stream;
 
-import com.google.common.primitives.Longs;
 import org.streamlio.config.Config;
 import org.streamlio.connect.SinkConnector;
-import org.streamlio.message.BaseMessage;
 import org.streamlio.util.SinkConnectorContext;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicLong;
 
-public class PrintStreamSink extends SinkConnector<SinkConnectorContext,BaseMessage> {
+public class PrintStreamSink extends SinkConnector<SinkConnectorContext,String> {
 
     private String outputFormat;
-
+    private AtomicLong linesReceived;
     private PrintStream stream = System.out;
 
     @Override
-    public void publish(Collection<BaseMessage> messages) throws Exception {
-        for(BaseMessage message : messages){
+    public void publish(Collection<String> messages) throws Exception {
+        for(String message : messages){
+            long id = linesReceived.incrementAndGet();
             final String output = String.format(
                     outputFormat,
-                    Longs.fromByteArray(message.getMessageId().toByteArray()),
-                    new String(message.getData()));
+                    id,
+                    message);
             stream.println(output);
         }
     }
@@ -55,6 +55,7 @@ public class PrintStreamSink extends SinkConnector<SinkConnectorContext,BaseMess
     public void open(Config config) throws Exception {
         outputFormat = config.getString(ConfigKeys.OUTPUT_FORMAT_KEY, ConfigKeys.DEFAULT_OUTPUT_FORMAT);
         stream = System.out;
+        linesReceived = new AtomicLong(0);
     }
 
     @Override

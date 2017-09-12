@@ -17,29 +17,35 @@
  * under the License.
  */
 
-package org.streamlio.runner;
+package examples.pulsar;
 
+import examples.localfs.LocalStreamCopyRunner;
 import org.streamlio.config.Config;
+import org.streamlio.config.ConfigProvider;
 import org.streamlio.connect.SourceConnector;
 import org.streamlio.connect.SourceContextSinkLinked;
+import org.streamlio.connectors.pulsar.PulsarSource;
+import org.streamlio.context.CopyContext;
+import org.streamlio.runner.LinkedBasicRunner;
+import org.streamlio.stream.PrintStreamSink;
 
-public class LinkedBasicRunner<T extends SourceConnector, U extends SourceContextSinkLinked>{
+public class LocalPulsarStreamWriterRunner extends LinkedBasicRunner {
 
-    T source;
-    U sourceContextLinked;
-
-    public LinkedBasicRunner(T source, U sourceContextLinked){
-        this.source = source;
-        this.sourceContextLinked = sourceContextLinked;
+    public LocalPulsarStreamWriterRunner(SourceConnector source, SourceContextSinkLinked sourceContext) {
+        super(source, sourceContext);
     }
 
-    public void setup(Config config) throws Exception{
-        this.source.open(config);
-        this.sourceContextLinked.setup(config);
-    }
+    public static void main(String[] args) throws Exception {
 
-    public void run() throws Exception {
-        this.source.start(this.sourceContextLinked);
-    }
+        PrintStreamSink sink = new PrintStreamSink();
 
+        LocalStreamCopyRunner runner = new LocalStreamCopyRunner(
+                new PulsarSource(),
+                new CopyContext(sink)
+        );
+
+        Config config = new ConfigProvider();
+        runner.setup(config);
+        runner.run();
+    }
 }

@@ -24,9 +24,7 @@ import org.streamlio.util.SinkConnectorContext;
 
 import java.util.Collection;
 
-public abstract class SinkConnector
-        <T extends SinkConnectorContext, U extends BaseMessage>
-        extends Connector<T> {
+public abstract class SinkConnector<T extends SinkConnectorContext,U> extends Connector<T> {
 
     public abstract void publish(final Collection<U> messages) throws Exception;
 

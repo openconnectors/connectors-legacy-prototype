@@ -35,7 +35,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class StdInputStreamSource extends SourceConnector<SourceConnectorContext,BaseMessage> {
+public class StdInputStreamSource extends SourceConnector<SourceConnectorContext,String> {
 
     private InputStream stream;
     private InputStreamReader streamReader;
@@ -61,14 +61,13 @@ public class StdInputStreamSource extends SourceConnector<SourceConnectorContext
     }
 
     @Override
-    public void start(SourceContext<BaseMessage> ctx) throws Exception {
+    public void start(SourceContext<String> ctx) throws Exception {
 
         while (true) {
             Thread.sleep(10);
             if (bufferedReader.ready()) {
                 long id = linesRead.incrementAndGet();
-                ctx.collect(Collections.singleton(
-                        new LineDataBaseMessage(id, bufferedReader.readLine())));
+                ctx.collect(Collections.singleton(bufferedReader.readLine()));
             }
         }
 
