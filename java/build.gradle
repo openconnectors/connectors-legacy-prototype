@@ -187,6 +187,42 @@ subprojects {
 		}.writeTo("$buildDir/pom.xml")
 	}
 
+	uploadArchives {
+    	configuration = configurations.archives
+    	repositories.mavenDeployer {
+    	    pom.project {
+    	        name name
+    	        description description
+    	        url "https://github.com/harningt/${project.name}"
+    	        inceptionYear '2017'
+
+    	        scm {
+    	            connection 'scm:git:https://github.com/harningt/atomun-core.git'
+    	            developerConnection 'scm:git:git@github.com:harningt/atomun-core.git'
+    	            url 'https://github.com/harningt/atomun-core'
+    	        }
+
+    	        licenses {
+    	            license {
+    	                name 'Apache License, Version 2.0'
+    	                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    	                distribution 'repo'
+    	            }
+    	        }
+    	        developers {
+    	            developer {
+    	                id 'harningt'
+    	                name 'Thomas Harning Jr'
+    	                email 'harningt@gmail.com'
+    	            }
+    	        }
+    	    }
+    	    beforeDeployment { MavenDeployment deployment ->
+    	        signing.signPom(deployment)
+    	    }
+    	}
+	}
+
 }
 
 //Core
