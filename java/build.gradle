@@ -39,6 +39,10 @@ subprojects {
     	repo = "maven-repo"
 	}
 
+	// // Typically set in ~/.gradle/gradle.properties
+	// project.ext['signing.keyId'] = "32A8FA19"
+	// project.ext['signing.secretKeyRingFile'] = "/Users/a.ahmed/.gnupg/secring.gpg"
+
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
 
@@ -71,6 +75,11 @@ subprojects {
 	ext {
     	pomFilePath = "${project.projectDir}/build/pom.xml"
     	pomFile = file(pomFilePath)
+	}
+
+	signing {
+    	required = false
+    	sign configurations.archives
 	}
 
 	task sourcesJar(type: Jar, dependsOn: classes) {
@@ -115,15 +124,6 @@ subprojects {
 
 	task preparePublication (dependsOn : signJars)
 
-	artifacts {
-		archives jar
-		archives sourcesJar
-		archives javadocJar
-		if (pomFile.exists()) {
-        	pom pomFile
-    	}
-	}
-
 	task fatJar(type: Jar) {
 		baseName = project.name + '-uber'
 		from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -146,6 +146,32 @@ subprojects {
 				artifact javadocJar {
 					classifier "javadoc"
 		  		}
+
+		  		if (signing.required) {
+                	// Sign the pom.xml.
+                	pom.withXml {
+                	    writeTo(project.ext.pomFile)
+                	    def pomAscFile = signing.sign(project.ext.pomFile).signatureFiles[0]
+                	    artifact(pomAscFile) {
+                	        classifier = null
+                	        extension = 'pom.asc'
+                	    }
+                	    // project.ext.pomFile.delete()
+                	}
+
+                	// Sign the artifacts.
+                	project.tasks.signArchives.signatureFiles.each {
+                	    artifact(it) {
+                	        def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
+                	        if (matcher.find()) {
+                	            classifier = matcher.group(1)
+                	        } else {
+                	            classifier = null
+                	        }
+                	        extension = 'jar.asc'
+                	    }
+                	}
+            	}
 			}
 	 	}
 	 	repositories {
@@ -187,41 +213,41 @@ subprojects {
 		}.writeTo("$buildDir/pom.xml")
 	}
 
-	uploadArchives {
-    	configuration = configurations.archives
-    	repositories.mavenDeployer {
-    	    pom.project {
-    	        name name
-    	        description description
-    	        url "https://github.com/harningt/${project.name}"
-    	        inceptionYear '2017'
+	// uploadArchives {
+ //    	configuration = configurations.archives
+ //    	repositories.mavenDeployer {
+ //    	    pom.project {
+ //    	        name name
+ //    	        description description
+ //    	        url "https://github.com/harningt/${project.name}"
+ //    	        inceptionYear '2017'
 
-    	        scm {
-    	            connection 'scm:git:https://github.com/harningt/atomun-core.git'
-    	            developerConnection 'scm:git:git@github.com:harningt/atomun-core.git'
-    	            url 'https://github.com/harningt/atomun-core'
-    	        }
+ //    	        scm {
+ //    	            connection 'scm:git:https://github.com/harningt/atomun-core.git'
+ //    	            developerConnection 'scm:git:git@github.com:harningt/atomun-core.git'
+ //    	            url 'https://github.com/harningt/atomun-core'
+ //    	        }
 
-    	        licenses {
-    	            license {
-    	                name 'Apache License, Version 2.0'
-    	                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    	                distribution 'repo'
-    	            }
-    	        }
-    	        developers {
-    	            developer {
-    	                id 'harningt'
-    	                name 'Thomas Harning Jr'
-    	                email 'harningt@gmail.com'
-    	            }
-    	        }
-    	    }
-    	    beforeDeployment { MavenDeployment deployment ->
-    	        signing.signPom(deployment)
-    	    }
-    	}
-	}
+ //    	        licenses {
+ //    	            license {
+ //    	                name 'Apache License, Version 2.0'
+ //    	                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+ //    	                distribution 'repo'
+ //    	            }
+ //    	        }
+ //    	        developers {
+ //    	            developer {
+ //    	                id 'harningt'
+ //    	                name 'Thomas Harning Jr'
+ //    	                email 'harningt@gmail.com'
+ //    	            }
+ //    	        }
+ //    	    }
+ //    	    beforeDeployment { MavenDeployment deployment ->
+ //    	        signing.signPom(deployment)
+ //    	    }
+ //    	}
+	// }
 
 }
 
