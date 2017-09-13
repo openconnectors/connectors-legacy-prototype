@@ -101,7 +101,8 @@ subprojects {
 		with jar
 	}
 
-	publishToMavenLocal.dependsOn("signArchives")
+	build.mustRunAfter signArchives
+	publishToMavenLocal.dependsOn(build)
 
 	publishing {
 		publications {
@@ -132,7 +133,6 @@ subprojects {
                 	}
 
                 	// Sign the artifacts.
-                	project.tasks.signArchives
                 	project.tasks.signArchives.signatureFiles.each {
                     		artifact(it) {
                     	    def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
@@ -190,6 +190,14 @@ subprojects {
 
 //Core
 project(':core') {
+	// 		model {
+ //    tasks.publishJarPublicationToMavenLocal {
+ //        dependsOn(project.tasks.signArchives)
+ //    }
+ //    tasks.publishJarPublicationToMavenRepository {
+ //        dependsOn(project.tasks.signArchives)
+ //    }
+	// }
 
 }
 
