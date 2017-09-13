@@ -34,7 +34,7 @@ subprojects {
     	github("streamlio", "maven-repo", "master", "releases")
 	}
 
-	gitPublishConfig{
+	gitPublishConfig {
     	org = "streamlio"
     	repo = "maven-repo"
 	}
@@ -88,11 +88,6 @@ subprojects {
 		from javadoc.destinationDir
 	}
 
-	// add configuration for pom signing
-	configurations {
-	    pom
-	}
-
 	// summarize artifacts
 	artifacts {
 	    archives jar
@@ -105,6 +100,8 @@ subprojects {
 		from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 		with jar
 	}
+
+	publishToMavenLocal.dependsOn("signArchives")
 
 	publishing {
 		publications {
@@ -132,6 +129,20 @@ subprojects {
                 	        classifier = null
                 	        extension = 'pom.asc'
                 	    }
+                	}
+
+                	// Sign the artifacts.
+                	project.tasks.signArchives
+                	project.tasks.signArchives.signatureFiles.each {
+                    		artifact(it) {
+                    	    def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
+                    	    if (matcher.find()) {
+                    	        classifier = matcher.group(1)
+                    	    } else {
+                    	        classifier = null
+                    	    }
+                    	    extension = 'jar.asc'
+                    	}
                 	}
             	}
 			}
