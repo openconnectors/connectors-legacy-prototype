@@ -103,6 +103,7 @@ subprojects {
 
 	build.mustRunAfter signArchives
 	publishToMavenLocal.dependsOn(build)
+	publish.dependsOn(build)
 
 	publishing {
 		publications {
