@@ -39,10 +39,6 @@ subprojects {
     	repo = "maven-repo"
 	}
 
-	// // Typically set in ~/.gradle/gradle.properties
-	// project.ext['signing.keyId'] = "32A8FA19"
-	// project.ext['signing.secretKeyRingFile'] = "/Users/a.ahmed/.gnupg/secring.gpg"
-
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
 
@@ -78,7 +74,7 @@ subprojects {
 	}
 
 	signing {
-    	required = false
+    	required = true
     	sign configurations.archives
 	}
 
@@ -102,27 +98,7 @@ subprojects {
 	    archives jar
 	    archives sourcesJar
 	    archives javadocJar
-	    if (pomFile.exists()) {
-	        pom pomFile
-	    }
 	}
-
-	// extract pom signature
-	def getPomSignature = {
-    	return project.tasks.signPom.signatureFiles.collect{it}[0]
-	}
-
-	// sign all artifacts
-	task signJars (type : Sign, dependsOn: [jar, javadocJar, sourcesJar]) {
-	    sign configurations.archives
-	}
-
-	// sign pom
-	task signPom(type: Sign) {
-    	sign configurations.pom
-	}
-
-	task preparePublication (dependsOn : signJars)
 
 	task fatJar(type: Jar) {
 		baseName = project.name + '-uber'
@@ -155,20 +131,6 @@ subprojects {
                 	    artifact(pomAscFile) {
                 	        classifier = null
                 	        extension = 'pom.asc'
-                	    }
-                	    // project.ext.pomFile.delete()
-                	}
-
-                	// Sign the artifacts.
-                	project.tasks.signArchives.signatureFiles.each {
-                	    artifact(it) {
-                	        def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
-                	        if (matcher.find()) {
-                	            classifier = matcher.group(1)
-                	        } else {
-                	            classifier = null
-                	        }
-                	        extension = 'jar.asc'
                 	    }
                 	}
             	}
@@ -212,42 +174,6 @@ subprojects {
 			}
 		}.writeTo("$buildDir/pom.xml")
 	}
-
-	// uploadArchives {
- //    	configuration = configurations.archives
- //    	repositories.mavenDeployer {
- //    	    pom.project {
- //    	        name name
- //    	        description description
- //    	        url "https://github.com/harningt/${project.name}"
- //    	        inceptionYear '2017'
-
- //    	        scm {
- //    	            connection 'scm:git:https://github.com/harningt/atomun-core.git'
- //    	            developerConnection 'scm:git:git@github.com:harningt/atomun-core.git'
- //    	            url 'https://github.com/harningt/atomun-core'
- //    	        }
-
- //    	        licenses {
- //    	            license {
- //    	                name 'Apache License, Version 2.0'
- //    	                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
- //    	                distribution 'repo'
- //    	            }
- //    	        }
- //    	        developers {
- //    	            developer {
- //    	                id 'harningt'
- //    	                name 'Thomas Harning Jr'
- //    	                email 'harningt@gmail.com'
- //    	            }
- //    	        }
- //    	    }
- //    	    beforeDeployment { MavenDeployment deployment ->
- //    	        signing.signPom(deployment)
- //    	    }
- //    	}
-	// }
 
 }
 
