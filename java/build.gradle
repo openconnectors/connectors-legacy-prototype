@@ -88,11 +88,18 @@ subprojects {
 		from javadoc.destinationDir
 	}
 
+	configurations {
+		pom
+	}
+
 	// summarize artifacts
 	artifacts {
 	    archives jar
 	    archives sourcesJar
 	    archives javadocJar
+		if (pomFile.exists()) {
+			pom pomFile
+		}
 	}
 
 	task fatJar(type: Jar) {
@@ -191,14 +198,6 @@ subprojects {
 
 //Core
 project(':core') {
-	// 		model {
- //    tasks.publishJarPublicationToMavenLocal {
- //        dependsOn(project.tasks.signArchives)
- //    }
- //    tasks.publishJarPublicationToMavenRepository {
- //        dependsOn(project.tasks.signArchives)
- //    }
-	// }
 
 }
 
