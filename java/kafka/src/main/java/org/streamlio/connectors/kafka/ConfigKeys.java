@@ -20,4 +20,14 @@
 package org.streamlio.connectors.kafka;
 
 public class ConfigKeys {
+    public static final String KAFKA_SINK_BOOTSTRAP_SERVERS = "kafka.sink.bootstrap_servers";
+    public static final String KAFKA_SINK_ACKS = "kafka.sink.acks";
+    public static final String KAFKA_SINK_BATCH_SIZE = "kafka.sink.batch_size";
+    public static final String KAFKA_SINK_MAX_REQUEST_SIZE = "kafka.sink.max_request_size";
+    public static final String KAFKA_SINK_TOPIC = "kafka.sink.topic";
+    public static final String KAFKA_SOURCE_BOOTSTRAP_SERVERS = "kafka.source.bootstrap_servers";
+    public static final String KAFKA_SOURCE_GROUP_ID = "kafka.source.group_id";
+    public static final String KAFKA_SOURCE_FETCH_MIN_BYTES = "kafka.source.fetch_min_bytes";
+    public static final String KAFKA_SOURCE_AUTO_COMMIT_INTERVAL_MS = "kafka.source.auto_commit_interval_ms";
+    public static final String KAFKA_SOURCE_SESSION_TIMEOUT_MS = "kafka.source.session_timeout_ms";
 }

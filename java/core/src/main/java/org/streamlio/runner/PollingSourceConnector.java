@@ -17,6 +17,9 @@
  * under the License.
  */
 
-dependencies {
-    compile 'org.apache.kafka:kafka-clients:0.10.0.0'
+package org.streamlio.runner;
+
+import org.streamlio.connect.SourceConnector;
+
+public abstract class PollingSourceConnector extends SourceConnector{
 }
