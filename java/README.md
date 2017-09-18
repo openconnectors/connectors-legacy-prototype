@@ -3,6 +3,18 @@
 
 This project is to develop the framework and the there underlying implementations for input and output to various external storage and data processing systems.
 
+## Task List
+
+- [X] Decide of config framework : Finalized for type safe config.
+- [x] Languages : Keep the core codebase around java.
+- [x] Design V1 : Model around simple source and sink api's
+- [x] Add basic file connector
+- [ ] Add basic Pulsar connector
+- [ ] Add basic Kafka connector
+- [ ] Design V3 : Support new heron dsl and schema registry
+- [ ] Design V4 : Manage scale out sources.
+- [ ] Design V5 : Manage scale out sinks.
+
 ## Design
 
 The basic design involves around a high level abstract connector component.
@@ -48,6 +60,7 @@ In dealing with more complex and parallel execution environments and dealing wit
 ### Acknowledgement
 
 ### Throttling
+
 
 
 
